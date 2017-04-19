@@ -1,9 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types'
-import ProjectsList from '../components/ProjectsList';
-import {connect} from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import ProjectsList from "../components/ProjectsList";
+import {connect} from "react-redux";
+import {fetchProjects} from "../actions";
 
 class ProjectsPage extends React.Component {
+    componentDidMount() {
+        this.props.fetchProjects();
+    }
+
     render() {
         return (
             <div>
@@ -15,7 +20,8 @@ class ProjectsPage extends React.Component {
 }
 
 ProjectsPage.propTypes = {
-    projects: PropTypes.array.isRequired
+    projects: PropTypes.array.isRequired,
+    fetchProjects: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -24,4 +30,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(ProjectsPage);
+export default connect(mapStateToProps, {fetchProjects})(ProjectsPage);

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import logo from "./logo.svg";
-import {Route, Link} from 'react-router-dom'
-import ProjectsPage from './pages/ProjectsPage'
+import {Route, Link} from "react-router-dom";
+import ProjectsPage from "./pages/ProjectsPage";
 import "./App.css";
 
 class App extends Component {
