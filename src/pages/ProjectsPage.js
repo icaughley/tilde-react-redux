@@ -11,7 +11,7 @@ class ProjectsPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="projects-page">
                 <h1>Projects List</h1>
                 <ProjectsList projects={this.props.projects}/>
             </div>
