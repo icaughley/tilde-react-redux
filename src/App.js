@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Header from "./components/Header";
-import Nav from "./components/Nav";
+import SecurityPageWrapper from "./pages/SecurityPageWrapper";
 import Footer from "./components/Footer";
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
         return (
             <div className="main">
                 <Header />
-                <Nav username="icaughley"/>
+                <SecurityPageWrapper />
                 <Footer />
             </div>
         );
