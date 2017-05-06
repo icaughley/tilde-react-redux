@@ -20,7 +20,7 @@ export default function ProjectsList({projects}) {
         <table className="view-projects">
             <thead>
             <tr>
-                <td className="table-heading" colspan="2">Project Cloaking</td>
+                <td className="table-heading" colSpan="2">Project Cloaking</td>
             </tr>
 
             <tr>
