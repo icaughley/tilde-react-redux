@@ -1,4 +1,5 @@
-import {LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT} from "../actions";
+import {LOGIN_SUCCESS, LOGIN_FAIL} from "../middleware/authentication";
+import {LOGOUT} from "../actions";
 
 export default function projects(state = null, action = {}) {
     switch (action.type) {

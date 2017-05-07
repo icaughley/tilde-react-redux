@@ -7,7 +7,8 @@ import {login, logout} from "../actions";
 class AuthenticationPageWrapper extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: "", password: ""};
+        // this.state = {username: "", password: ""};
+        this.state = {username: "icaughley", password: "ian"};
 
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);

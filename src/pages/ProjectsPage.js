@@ -24,9 +24,9 @@ ProjectsPage.propTypes = {
     fetchProjects: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({projects}) {
     return {
-        projects: state.projects
+        projects
     }
 }
 
