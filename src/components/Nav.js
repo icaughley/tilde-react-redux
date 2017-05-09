@@ -1,7 +1,7 @@
 import React from "react";
 import {Route, Link} from "react-router-dom";
 import "../style/style.css";
-import ProjectsPage from "../pages/ProjectsPage";
+import ProjectsPage from "../containers/ProjectsPage";
 
 export default function Nav({userName, logoutCallback}) {
     return (

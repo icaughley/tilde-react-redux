@@ -5,17 +5,17 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 
 export default store => next => action => {
     if (action.type === LOGIN) {
-        const user = action.payload;
-        if (user.authenticated) {
+        const auth = action.payload;
+        if (auth.authenticated) {
             action = {
                 type: LOGIN_SUCCESS,
-                user
+                auth
             };
         }
         else {
             action = {
                 type: LOGIN_FAIL,
-                user: null
+                auth: null
             };
 
         }

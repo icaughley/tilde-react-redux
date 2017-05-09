@@ -29,8 +29,8 @@ class AuthenticationPageWrapper extends React.Component {
     }
 
     render() {
-        if (this.props.user) {
-            return <Nav userName={this.props.user.name} logoutCallback={this.props.logout}/>;
+        if (this.props.auth) {
+            return <Nav userName={this.props.auth.user.name} logoutCallback={this.props.logout}/>;
         }
         else {
             return (
@@ -47,14 +47,14 @@ class AuthenticationPageWrapper extends React.Component {
 }
 
 AuthenticationPageWrapper.propTypes = {
-    user: PropTypes.object,
+    auth: PropTypes.object,
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps({auth}) {
     return {
-        user: state.user
+        auth
     }
 }
 

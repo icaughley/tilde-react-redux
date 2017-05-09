@@ -17,5 +17,5 @@ export function login(username, password) {
 }
 
 export function logout() {
-    return dispatch => dispatch({type: LOGOUT});
+    return {type: LOGOUT};
 }

@@ -2,11 +2,11 @@ body {
     background: white;
     margin: 10px;
     padding: 0;
+    font-size: 12px;
 }
 
 body, div, p, th, td {
     font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 80%;
     color: #281747;
 }
 
@@ -92,17 +92,9 @@ div.header .logo {
 }
 
 div.menu {
+    padding: 3px;
     background: #d5e1e9;
     border-bottom: 1px solid #a2b7c5;
-}
-
-div.menu table{
-    width: 100%;
-}
-
-div.menu td {
-    font-size: 75%;
-    vertical-align: top;
 }
 
 div.menu .menu-right{

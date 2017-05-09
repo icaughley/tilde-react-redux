@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import Header from "./components/Header";
-import SecurityPageWrapper from "./pages/SecurityPageWrapper";
-import Footer from "./components/Footer";
+import Header from "../components/Header";
+import SecurityPageWrapper from "./SecurityPageWrapper";
+import Footer from "../components/Footer";
 
 class App extends Component {
     render() {
