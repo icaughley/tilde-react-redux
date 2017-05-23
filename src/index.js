@@ -6,7 +6,6 @@ import authentication from "./middleware/authentication";
 import reducers from "./reducers/combined";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
 import ReduxPromise from "redux-promise";
 import "./index.css";
 
@@ -16,10 +15,8 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App />
-        </Provider>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <App />
+    </Provider>,
     document.getElementById('root')
 );

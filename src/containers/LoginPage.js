@@ -1,10 +1,10 @@
-import React from "react";
+import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 import PropTypes from "prop-types";
-import Nav from "../components/Nav";
 import {connect} from "react-redux";
-import {login, logout} from "../actions";
+import {login} from "../actions";
 
-class AuthenticationPageWrapper extends React.Component {
+class LoginPage extends Component {
     constructor(props) {
         super(props);
         // this.state = {username: "", password: ""};
@@ -29,10 +29,9 @@ class AuthenticationPageWrapper extends React.Component {
     }
 
     render() {
-        if (this.props.auth) {
-            return <Nav userName={this.props.auth.user.name} logoutCallback={this.props.logout}/>;
-        }
-        else {
+        if (this.props.auth)
+            return <Redirect to="/"/>;
+        else
             return (
                 <div className="login-page">
                     <form onSubmit={this.onFormSubmit}>
@@ -42,14 +41,12 @@ class AuthenticationPageWrapper extends React.Component {
                     </form>
                 </div>
             );
-        }
     }
 }
 
-AuthenticationPageWrapper.propTypes = {
+LoginPage.propTypes = {
     auth: PropTypes.object,
-    login: PropTypes.func.isRequired,
-    logout: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired
 };
 
 function mapStateToProps({auth}) {
@@ -58,4 +55,4 @@ function mapStateToProps({auth}) {
     }
 }
 
-export default connect(mapStateToProps, {login, logout})(AuthenticationPageWrapper);
+export default connect(mapStateToProps, {login})(LoginPage);

@@ -1,14 +1,28 @@
 import React, {Component} from "react";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Header from "../components/Header";
-import SecurityPageWrapper from "./SecurityPageWrapper";
 import Footer from "../components/Footer";
+import LoginPage from "./LoginPage";
+import ProjectsPage from "./ProjectsPage";
+import Nav from "./Nav";
+import SecureZone from "./SecureZone";
 
 class App extends Component {
     render() {
         return (
             <div className="main">
                 <Header />
-                <SecurityPageWrapper />
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/login" component={LoginPage}/>
+                        <SecureZone>
+                            <Nav />
+                            <div className="page-holder">
+                                <Route exact path="/projects" component={ProjectsPage}/>
+                            </div>
+                        </SecureZone>
+                    </Switch>
+                </BrowserRouter>
                 <Footer />
             </div>
         );
