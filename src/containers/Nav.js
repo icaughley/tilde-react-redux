@@ -15,7 +15,7 @@ class Nav extends Component {
                     | <Link to="timeSheet">Time Sheet</Link>
                     | <Link to="projects">Projects</Link>
                     | <Link to="invoicing">Invoicing</Link>
-                    | <Link to="payroll">Pay Roll</Link>
+                    | <Link to="payroll">Payroll</Link>
                     | <a href="#" onClick={this.props.logout}>Log Out</a> |
                 </span>
                 </div>
