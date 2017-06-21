@@ -7,6 +7,7 @@ import reducers from "./reducers/combined";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
 import ReduxPromise from "redux-promise";
+import 'semantic-ui-css/semantic.min.css';
 import "./index.css";
 
 const store = createStore(
