@@ -1,9 +1,13 @@
-import {SET_PROJECTS} from "../actions";
+import _ from "lodash";
 
-export default function (state = [], action = {}) {
+import {SET_PROJECTS, SET_PROJECT_CLOAKED} from "../actions";
+
+export default function (state = {}, action = {}) {
     switch (action.type) {
         case SET_PROJECTS:
-            return action.payload;
+            return _.mapKeys(action.payload.data, 'id');
+        case SET_PROJECT_CLOAKED:
+            return { ...state, [action.payload.data.id]: action.payload.data};
         default:
             return state;
     }

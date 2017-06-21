@@ -19,8 +19,8 @@ class App extends Component {
                         <SecureZone>
                             <Nav />
                             <div className="page-holder">
-                                <Route exact path="/projects" component={ProjectsPage}/>
-                                <Route exact path="/invoicing" component={InvoicingPage}/>
+                                <Route path="/projects" component={ProjectsPage}/>
+                                <Route path="/invoicing" component={InvoicingPage}/>
                             </div>
                         </SecureZone>
                     </Switch>
