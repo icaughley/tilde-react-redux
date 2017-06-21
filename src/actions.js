@@ -1,6 +1,8 @@
 import axios from "axios";
+import qs from "qs";
 
 export const SET_PROJECTS = 'SET_PROJECTS';
+export const SET_PROJECT_CLOAKED = 'SET_PROJECT_CLOAKED';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
@@ -9,6 +11,13 @@ export function fetchProjects(user) {
         type: SET_PROJECTS,
         payload: axios.get(`/api/users/${user.id}/projects`)
     };
+}
+
+export function setCloaked(project, user, value) {
+    return {
+        type: SET_PROJECT_CLOAKED,
+        payload: axios.post(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
+    }
 }
 
 export function login(username, password) {
