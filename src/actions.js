@@ -19,21 +19,22 @@ export function fetchInvoicings() {
         type: SET_INVOICING,
         payload: fetch('/api/invoicing').then(res => res.json())
     };
+}
 
-    export function setCloaked(project, user, value) {
-        return {
-            type: SET_PROJECT_CLOAKED,
-            payload: axios.post(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
-        }
+export function setCloaked(project, user, value) {
+    return {
+        type: SET_PROJECT_CLOAKED,
+        payload: axios.post(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
     }
+}
 
-    export function login(username, password) {
-        return {
-            type: LOGIN,
-            payload: axios.get(`/api/users/authenticate/${username}?password=${password}`)
-        }
+export function login(username, password) {
+    return {
+        type: LOGIN,
+        payload: axios.get(`/api/users/authenticate/${username}?password=${password}`)
     }
+}
 
-    export function logout() {
-        return {type: LOGOUT};
-    }
+export function logout() {
+    return {type: LOGOUT};
+}
