@@ -1,32 +1,28 @@
 import axios from "axios";
 import qs from "qs";
-
-export const SET_PROJECTS = 'SET_PROJECTS';
-export const SET_PROJECT_CLOAKED = 'SET_PROJECT_CLOAKED';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+import * as ActionTypes from "./actionTypes";
 
 export function fetchProjects(user) {
     return {
-        type: SET_PROJECTS,
+        type: ActionTypes.GET_PROJECTS,
         payload: axios.get(`/api/users/${user.id}/projects`)
     };
 }
 
-export function setCloaked(project, user, value) {
+export function setProjectCloaked(project, user, value) {
     return {
-        type: SET_PROJECT_CLOAKED,
+        type: ActionTypes.SET_PROJECT_CLOAKED,
         payload: axios.post(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
     }
 }
 
 export function login(username, password) {
     return {
-        type: LOGIN,
+        type: ActionTypes.LOGIN,
         payload: axios.get(`/api/users/authenticate/${username}?password=${password}`)
     }
 }
 
 export function logout() {
-    return {type: LOGOUT};
+    return {type: ActionTypes.LOGOUT};
 }
