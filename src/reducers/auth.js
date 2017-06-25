@@ -1,5 +1,5 @@
 import {LOGIN_SUCCESS, LOGIN_FAIL} from "../middleware/authentication";
-import {LOGOUT} from "../actions";
+import {LOGOUT} from "../actionTypes";
 
 export default function (state = null, action = {}) {
     switch (action.type) {

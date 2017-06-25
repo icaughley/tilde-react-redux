@@ -1,4 +1,4 @@
-import {LOGIN} from "../actions";
+import {LOGIN} from "../actionTypes";
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';

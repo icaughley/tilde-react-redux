@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
-import {fetchProjects, setCloaked} from "../actions";
+import {fetchProjects, setProjectCloaked} from "../actions";
 import EditModal from "../components/EditProjectModal";
 
 class ProjectsPage extends React.Component {
@@ -11,7 +11,7 @@ class ProjectsPage extends React.Component {
     }
 
     onCloakedChange(project, value) {
-        this.props.setCloaked(project, this.props.user, value);
+        this.props.setProjectCloaked(project, this.props.user, value);
     }
 
     render() {
@@ -27,7 +27,7 @@ class ProjectsPage extends React.Component {
 ProjectsPage.propTypes = {
     projects: PropTypes.object.isRequired,
     fetchProjects: PropTypes.func.isRequired,
-    setCloaked: PropTypes.func.isRequired
+    setProjectCloaked: PropTypes.func.isRequired
 };
 
 function mapStateToProps({auth, projects}) {
@@ -37,4 +37,4 @@ function mapStateToProps({auth, projects}) {
     }
 }
 
-export default connect(mapStateToProps, {fetchProjects, setCloaked})(ProjectsPage);
+export default connect(mapStateToProps, {fetchProjects, setProjectCloaked})(ProjectsPage);
