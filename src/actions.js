@@ -16,6 +16,20 @@ export function setProjectCloaked(project, user, value) {
     }
 }
 
+export function addProject(project) {
+    return {
+        type: ActionTypes.CRATE_PROJECT,
+        payload: axios.put('/api/projects', qs.stringify({project}))
+    }
+}
+
+export function updateProject(project) {
+    return {
+        type: ActionTypes.UPDATE_PROJECT,
+        payload: axios.post(`/api/projects/${project.id}`, qs.stringify({project}))
+    }
+}
+
 export function login(username, password) {
     return {
         type: ActionTypes.LOGIN,
