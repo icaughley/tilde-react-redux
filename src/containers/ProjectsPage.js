@@ -1,8 +1,10 @@
 import React from "react";
+import {Route} from "react-router-dom";
 import PropTypes from "prop-types";
 import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
 import {fetchProjects, setProjectCloaked} from "../actions";
+import AddModal from "../components/AddProjectModal";
 import EditModal from "../components/EditProjectModal";
 
 class ProjectsPage extends React.Component {
@@ -17,7 +19,8 @@ class ProjectsPage extends React.Component {
     render() {
         return (
             <div className="projects-page">
-                <h1>Projects List</h1>
+                <Route path="/projects/:id" component={EditModal}/>
+                <h1>Projects List <AddModal /></h1>
                 <ProjectsList projects={this.props.projects} onCloakedChange={this.onCloakedChange.bind(this)}/>
             </div>
         );
