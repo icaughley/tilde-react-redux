@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
 import {fetchProjects, setProjectCloaked} from "../actions";
-import EditModal from "../components/EditProjectModal";
 
 class ProjectsPage extends React.Component {
     componentDidMount() {

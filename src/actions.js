@@ -1,11 +1,6 @@
 import axios from "axios";
 import qs from "qs";
 
-export const SET_PROJECTS = 'SET_PROJECTS';
-export const SET_INVOICING = 'SET_INVOICING';
-export const SET_PROJECT_CLOAKED = 'SET_PROJECT_CLOAKED';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
 import * as ActionTypes from "./actionTypes";
 
 export function fetchProjects(user) {
@@ -15,10 +10,17 @@ export function fetchProjects(user) {
     };
 }
 
-export function fetchInvoicings() {
+export function fetchInvoicingEntries() {
     return {
-        type: SET_INVOICING,
-        payload: fetch('/api/invoicing').then(res => res.json())
+        type: ActionTypes.GET_INVOICING,
+        payload: axios.get(`/api/invoicing/entries`)
+    };
+}
+
+export function fetchInvoicingProjects() {
+    return {
+        type: ActionTypes.GET_INVOICING_PROJECTS,
+        payload: axios.get(`/api/invoicing/projects`)
     };
 }
 
