@@ -5,7 +5,7 @@ import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
 import {fetchProjects, setProjectCloaked} from "../actions";
 import AddModal from "../components/AddProjectModal";
-import EditModal from "../components/EditProjectModal";
+import EditModal from "../containers/EditProjectModal";
 
 class ProjectsPage extends React.Component {
     componentDidMount() {

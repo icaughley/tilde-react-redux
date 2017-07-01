@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import LoginPage from "./LoginPage";
-import ProjectsPage from "./ProjectsPage";
-import Nav from "./Nav";
-import SecureZone from "./SecureZone";
+import LoginPage from "../containers/LoginPage";
+import ProjectsPage from "../containers/ProjectsPage";
+import Nav from "../containers/Nav";
+import SecureZone from "../containers/SecureZone";
 
 class App extends Component {
     render() {

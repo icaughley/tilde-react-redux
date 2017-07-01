@@ -18,15 +18,15 @@ export function setProjectCloaked(project, user, value) {
 
 export function addProject(project) {
     return {
-        type: ActionTypes.CRATE_PROJECT,
-        payload: axios.post('/api/projects', qs.stringify({project}))
+        type: ActionTypes.CREATE_PROJECT,
+        payload: axios.post('/api/projects', qs.stringify(project))
     }
 }
 
 export function updateProject(project) {
     return {
         type: ActionTypes.UPDATE_PROJECT,
-        payload: axios.put(`/api/projects/${project.id}`, qs.stringify({project}))
+        payload: axios.put(`/api/projects/${project.id}`, qs.stringify(project))
     }
 }
 
