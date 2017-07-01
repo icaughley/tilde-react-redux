@@ -12,21 +12,28 @@ export function fetchProjects(user) {
 export function setProjectCloaked(project, user, value) {
     return {
         type: ActionTypes.SET_PROJECT_CLOAKED,
-        payload: axios.post(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
+        payload: axios.put(`/api/users/${user.id}/projects/${project.id}/cloak`, qs.stringify({cloaked: value}))
     }
 }
 
 export function addProject(project) {
     return {
         type: ActionTypes.CRATE_PROJECT,
-        payload: axios.put('/api/projects', qs.stringify({project}))
+        payload: axios.post('/api/projects', qs.stringify({project}))
     }
 }
 
 export function updateProject(project) {
     return {
         type: ActionTypes.UPDATE_PROJECT,
-        payload: axios.post(`/api/projects/${project.id}`, qs.stringify({project}))
+        payload: axios.put(`/api/projects/${project.id}`, qs.stringify({project}))
+    }
+}
+
+export function deleteProject(project) {
+    return {
+        type: ActionTypes.DELETE_PROJECT,
+        payload: axios.delete(`/api/projects/${project.id}`)
     }
 }
 
