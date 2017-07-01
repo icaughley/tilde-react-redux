@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Modal} from "semantic-ui-react";
 import {withRouter} from "react-router-dom";
 import ProjectForm from "../forms/ProjectForm";
@@ -15,10 +16,16 @@ class EditProjectModal extends React.Component {
                    closeIcon={true}
                    onClose={this.onClose.bind(this)}>
                 <Modal.Header>Edit Project</Modal.Header>
-                <Modal.Content><ProjectForm/></Modal.Content>
+                <Modal.Content><ProjectForm initialValues={this.props.project}/></Modal.Content>
             </Modal>
         );
     }
 }
 
-export default withRouter(EditProjectModal)
+function mapStateToProps({projects}, ownProps) {
+    return {
+        project: projects[ownProps.match.params.id]
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(EditProjectModal))
