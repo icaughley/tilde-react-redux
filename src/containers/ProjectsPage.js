@@ -25,7 +25,8 @@ class ProjectsPage extends React.Component {
             <div className="projects-page">
                 <Route path="/projects/:id" component={EditModal}/>
                 <h1>Projects List <AddModal onSubmit={this.onAddProjectSubmitted.bind(this)}/></h1>
-                <ProjectsList projects={this.props.projects} onCloakedChange={this.onCloakedChange.bind(this)}/>
+                <ProjectsList projects={this.props.projects}
+                              onCloakedChange={this.onCloakedChange.bind(this)}/>
             </div>
         );
     }

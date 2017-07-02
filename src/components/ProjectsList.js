@@ -37,8 +37,8 @@ export default class ProjectsList extends React.Component {
                                    checked={project.cloaked ? "checked" : ""}
                                    onChange={this.onCloakedChange.bind(this, project)}/>
                         </td>
-                        <td className={this.tdClassName(project, "center aligned")}>{this.tickCross(project.billable)}</td>
                         <td className={this.tdClassName(project, "center aligned")}>{this.tickCross(project.working)}</td>
+                        <td className={this.tdClassName(project, "center aligned")}>{this.tickCross(project.billable)}</td>
                         <td className="center aligned">
                             <Link to={"/projects/" + project.id} className="ui compact icon button">
                                 <i className="edit icon"/>
@@ -55,8 +55,8 @@ export default class ProjectsList extends React.Component {
                     <th>Project Id</th>
                     <th>Name</th>
                     <th>Cloaked</th>
-                    <th>Billable</th>
                     <th>Working</th>
+                    <th>Billable</th>
                     <th/>
                 </tr>
                 </thead>

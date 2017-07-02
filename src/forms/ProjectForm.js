@@ -1,19 +1,21 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {renderField} from "../helpers/formHelper";
-import {Form, Button} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 const required = value => (value ? undefined : 'Must not be blank');
 
 const ProjectForm = props => {
     return (
-        <Form onSubmit={props.handleSubmit}>
+        <form onSubmit={props.handleSubmit} className="ui form">
             <Field name="name" label="Name" component={renderField} type="text" validate={[required]}/>
-            <Field name="working" label="Working" component={renderField} type="checkbox"/>
-            <Field name="billable" label="Billable" component={renderField} type="checkbox"/>
+            <div className="fields">
+                <Field name="working" label="Working" component={renderField} type="checkbox"/>
+                <Field name="billable" label="Billable" component={renderField} type="checkbox"/>
+            </div>
             <Button type="submit"
                     disabled={props.pristine || props.submitting}>Submit</Button>
-        </Form>
+        </form>
     );
 };
 
