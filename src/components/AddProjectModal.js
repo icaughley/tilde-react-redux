@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {Button, Modal} from "semantic-ui-react";
 import ProjectForm from "../forms/ProjectForm";
 
@@ -38,3 +39,7 @@ export default class AddProjectModal extends React.Component {
         );
     }
 }
+
+AddProjectModal.propTypes = {
+    onSubmit: PropTypes.func.isRequired
+};

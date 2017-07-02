@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import _ from "lodash";
+import {Button} from "semantic-ui-react";
 import "../style/style.css";
 
 export default class ProjectsList extends React.Component {
@@ -9,12 +10,15 @@ export default class ProjectsList extends React.Component {
         this.props.onCloakedChange(project, e.target.checked);
     }
 
+    onDelete(project) {
+        this.props.onDelete(project);
+    }
+
     tickCross(state) {
         return state ? <i className="checkmark icon"/> : <i className="remove circle icon"/>;
     }
 
-    tdClassName(project, extraClasses )
-    {
+    tdClassName(project, extraClasses) {
         return (extraClasses || "" ) + ( project.cloaked ? " disabled" : "" );
     }
 
@@ -40,9 +44,15 @@ export default class ProjectsList extends React.Component {
                         <td className={this.tdClassName(project, "center aligned")}>{this.tickCross(project.working)}</td>
                         <td className={this.tdClassName(project, "center aligned")}>{this.tickCross(project.billable)}</td>
                         <td className="center aligned">
-                            <Link to={"/projects/" + project.id} className="ui compact icon button">
-                                <i className="edit icon"/>
-                            </Link>
+                            <div className="ui icon buttons">
+                                <Link to={"/projects/" + project.id} className="ui compact icon button">
+                                    <i className="edit icon"/>
+                                </Link>
+                                <Button onClick={this.onDelete.bind(this, project)}
+                                        className="ui compact icon red button">
+                                    <i className="trash icon"/>
+                                </Button>
+                            </div>
                         </td>
                     </tr>
                 )
@@ -75,5 +85,7 @@ export default class ProjectsList extends React.Component {
 }
 
 ProjectsList.propTypes = {
-    projects: PropTypes.object.isRequired
+    projects: PropTypes.object.isRequired,
+    onCloakedChange: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };

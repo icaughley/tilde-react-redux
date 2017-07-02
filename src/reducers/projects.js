@@ -9,6 +9,8 @@ export default function (state = {}, action = {}) {
         case ActionTypes.UPDATE_PROJECT:
         case ActionTypes.CREATE_PROJECT:
             return {...state, [action.payload.data.id]: action.payload.data};
+        case ActionTypes.DELETE_PROJECT:
+            return _.omit(state, action.payload.data.id);
         default:
             return state;
     }
