@@ -4,7 +4,8 @@ import projects from "./projects";
 import invoicingEntries from "./invoicingEntries";
 import invoicingProjects from "./invoicingProjects";
 import auth from "./auth";
+import message from "./message";
 
 export default combineReducers({
-    form, projects, invoicingEntries, invoicingProjects, auth
+    form, projects, auth, message, invoicingEntries, invoicingProjects
 });

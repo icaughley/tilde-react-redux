@@ -17,10 +17,16 @@ class LoginPage extends Component {
             const {handleSubmit, pristine, submitting} = this.props;
             return (
                 <div className="login-page">
-                    <form onSubmit={handleSubmit(this.onFormSubmit.bind(this))}>
-                        <Field name="username" component="input" type="text"/>
-                        <Field name="password" component="input" type="password"/>
-                        <button type="submit" disabled={pristine || submitting}>Login</button>
+                    <form className="ui form" onSubmit={handleSubmit(this.onFormSubmit.bind(this))}>
+                        <div className="two fields">
+                            <div className="field">
+                                <Field name="username" component="input" type="text"/>
+                            </div>
+                            <div className="field">
+                                <Field name="password" component="input" type="password"/>
+                            </div>
+                        </div>
+                        <button className="ui button submit" type="submit" disabled={pristine || submitting}>Login</button>
                     </form>
                 </div>
             );

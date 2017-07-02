@@ -97,7 +97,7 @@ div.menu {
     border-bottom: 1px solid #a2b7c5;
 }
 
-div.menu .menu-right{
+div.menu .menu-right {
     float: right;
 }
 
@@ -113,6 +113,22 @@ div.menu a:visited {
 
 div.menu a:hover {
     color: red;
+}
+
+div.page-holder {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+div.page-message {
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
+div.login-page {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 div.footer {
