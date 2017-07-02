@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 import InvoicingList from "../components/InvoicingList";
 import {connect} from "react-redux";
 import {fetchInvoicingEntries, fetchInvoicingProjects} from "../actions";
-import {invoicingProjectsSelector} from '../selectors/selectors';
-import SelectInput from '../components/common/SelectInput';
+import {invoicingProjectsSelector} from "../selectors/selectors";
+import SelectInput from "../components/common/SelectInput";
 
 class InvoicingPage extends React.Component {
     componentDidMount() {
-        this.props.fetchInvoicingEntries();
         this.props.fetchInvoicingProjects();
     }
 
-    onInvoiceChange(project, value) {
-        // this.props.setProjectCloaked(project, this.props.user, value);
+    onInvoiceChange(event) {
+        this.setState({projectName: event.target.text});
+        return this.props.fetchInvoicingEntries(event.target.value);
     }
 
     render() {
@@ -26,26 +26,28 @@ class InvoicingPage extends React.Component {
                     value={this.props.project}
                     defaultOption="Select Project"
                     options={this.props.invoicingProjects}
-                     />
-                 <InvoicingList invoicingEntries={this.props.invoicingEntries}/>
+                    onChange={this.onInvoiceChange.bind(this)}
+                />
+                <InvoicingList projectName={this.props.projectName} invoicingEntries={this.props.invoicingEntries}/>
             </div>
         );
     }
 }
 
 InvoicingPage.propTypes = {
-    project: PropTypes.object,
-    invoicingEntries: PropTypes.object.isRequired,
+    projectName: PropTypes.string,
+    invoicingEntries: PropTypes.object,
     invoicingProjects: PropTypes.array.isRequired,
-    fetchInvoicingEntries: PropTypes.func.isRequired,
+    fetchInvoicingEntries: PropTypes.func,
     fetchInvoicingProjects: PropTypes.func.isRequired
 };
 
-function mapStateToProps({invoicingEntries, invoicingProjects}) {
+function mapStateToProps({invoicingProjects, invoicingEntries, projectName}) {
     return {
+        invoicingProjects: invoicingProjectsSelector(invoicingProjects),
         invoicingEntries,
-        invoicingProjects
+        projectName
     }
 }
 
-export default connect(mapStateToProps, {fetchInvoicingEntries, fetchInvoicingProjects})(InvoicingPage);
+export default connect(mapStateToProps, {fetchInvoicingProjects, fetchInvoicingEntries})(InvoicingPage);

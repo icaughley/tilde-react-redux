@@ -10,10 +10,10 @@ export function fetchProjects(user) {
     };
 }
 
-export function fetchInvoicingEntries() {
+export function fetchInvoicingEntries(projectID) {
     return {
         type: ActionTypes.GET_INVOICING,
-        payload: axios.get(`/api/invoicing/entries`)
+        payload: axios.get(`/api/invoicing/entries/${projectID}`)
     };
 }
 

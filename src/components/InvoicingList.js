@@ -30,7 +30,7 @@ export default class InvoicingList extends React.Component {
             <table className="view-projects">
                 <thead>
                 <tr>
-                    <td className="table-heading" colSpan="4">Project Cloaking</td>
+                    <td className="table-heading" colSpan="4">{this.props.projectName}</td>
                 </tr>
 
                 <tr>
@@ -48,12 +48,13 @@ export default class InvoicingList extends React.Component {
 
         return (
             <div>
-                {this.props.invoicingEntries.length === 0 ? emptyMessage : invoicingEntriesTable}
+                {this.props.invoicingEntries === undefined || this.props.invoicingEntries.length === 0 ? emptyMessage : invoicingEntriesTable}
             </div>
         );
     }
 }
 
 InvoicingList.propTypes = {
-    invoicingEntries: PropTypes.object.isRequired
+    invoicingEntries: PropTypes.object,
+    projectName: PropTypes.string
 };
