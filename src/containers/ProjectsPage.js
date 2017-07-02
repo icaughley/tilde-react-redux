@@ -3,7 +3,7 @@ import {Route} from "react-router-dom";
 import PropTypes from "prop-types";
 import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
-import {fetchProjects, setProjectCloaked} from "../actions";
+import {addProject, fetchProjects, setProjectCloaked} from "../actions";
 import AddModal from "../components/AddProjectModal";
 import EditModal from "../containers/EditProjectModal";
 
@@ -16,11 +16,15 @@ class ProjectsPage extends React.Component {
         this.props.setProjectCloaked(project, this.props.user, value);
     }
 
+    onAddProjectSubmitted(values) {
+        this.props.addProject(values);
+    }
+
     render() {
         return (
             <div className="projects-page">
                 <Route path="/projects/:id" component={EditModal}/>
-                <h1>Projects List <AddModal /></h1>
+                <h1>Projects List <AddModal onSubmit={this.onAddProjectSubmitted.bind(this)}/></h1>
                 <ProjectsList projects={this.props.projects} onCloakedChange={this.onCloakedChange.bind(this)}/>
             </div>
         );
@@ -40,4 +44,4 @@ function mapStateToProps({auth, projects}) {
     }
 }
 
-export default connect(mapStateToProps, {fetchProjects, setProjectCloaked})(ProjectsPage);
+export default connect(mapStateToProps, {fetchProjects, setProjectCloaked, addProject})(ProjectsPage);
