@@ -120,6 +120,11 @@ div.page-holder {
     padding-bottom: 50px;
 }
 
+div.page-message {
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
 div.login-page {
     text-align: center;
     padding-top: 50px;

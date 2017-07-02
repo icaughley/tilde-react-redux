@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginPage from "../containers/LoginPage";
 import ProjectsPage from "../containers/ProjectsPage";
+import PageMessage from "../containers/PageMessage";
 import Nav from "../containers/Nav";
 import SecureZone from "../containers/SecureZone";
 
@@ -18,6 +19,7 @@ class App extends Component {
                         <SecureZone>
                             <Nav />
                             <div className="page-holder">
+                                <PageMessage />
                                 <Route path="/projects" component={ProjectsPage}/>
                             </div>
                         </SecureZone>
