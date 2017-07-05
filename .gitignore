@@ -17,3 +17,8 @@ yarn-debug.log*
 yarn-error.log*
 
 tmp
+*.impl
+*.ipr
+*.iws
+*.iml
+
