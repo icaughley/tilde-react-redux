@@ -1,23 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {Message} from "semantic-ui-react";
+import {Icon, Message} from "semantic-ui-react";
+import {closeMessage} from "../actions";
 
 class PageMessage extends React.Component {
     render() {
-        if (this.props.message.type) {
-            const messageProps = {};
-            messageProps[this.props.message.type] = true;
+        const className = `page-message ${this.props.message.open ? "open" : "closed"}`;
+        const icon = this.props.message.icon ? <Icon name={this.props.message.icon}/> : "";
 
-            return (
-                <div className="page-message">
-                    <Message {...messageProps}>{this.props.message.msg}</Message>
-                </div>
-            );
+        const messageProps = {};
+        if (this.props.message.type) {
+            messageProps[this.props.message.type] = true;
         }
-        else {
-            return null;
-        }
+
+        return (
+            <div className={className}>
+                <Message icon={true}
+                         onDismiss={this.props.closeMessage}
+                         {...messageProps}>
+                    {icon}
+                    <Message.Content>
+                        <Message.Header>
+                            {this.props.message.header}
+                        </Message.Header>
+                        {this.props.message.msg}
+                    </Message.Content>
+                </Message>
+            </div>
+        );
     }
 }
 
@@ -31,4 +42,4 @@ function mapStateToProps({message}) {
     }
 }
 
-export default connect(mapStateToProps)(PageMessage);
+export default connect(mapStateToProps, {closeMessage})(PageMessage);

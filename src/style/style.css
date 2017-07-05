@@ -80,14 +80,14 @@ div.main {
     position: relative;
 }
 
-div.header {
+div.page_header {
     margin-top: 4px;
     background: white;
     border-top: 1px solid #a2b7c5;
     border-bottom: 1px solid #a2b7c5;
 }
 
-div.header .logo {
+div.page_header .logo {
     float: right;
 }
 
@@ -121,8 +121,15 @@ div.page-holder {
 }
 
 div.page-message {
-    margin-top: -25px;
-    margin-bottom: 25px;
+    position: fixed;
+    width: 700px;
+    top: 75px;
+    transition: 1s;
+    z-index: 300;
+}
+
+div.page-message.closed {
+    top: -75px;
 }
 
 div.login-page {
