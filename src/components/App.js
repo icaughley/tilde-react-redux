@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginPage from "../containers/LoginPage";
 import ProjectsPage from "../containers/ProjectsPage";
-import InvoicingPage from "./InvoicingPage";
+import InvoicingPage from "../containers/InvoicingPage";
 import PageMessage from "../containers/PageMessage";
 import Nav from "../containers/Nav";
 import SecureZone from "../containers/SecureZone";

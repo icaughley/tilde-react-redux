@@ -8,9 +8,18 @@ export default class InvoicingList extends React.Component {
         this.props.onInvoiceChange(invoicing, e.target.checked);
     }
 
+    isEmpty(o) {
+        for (var p in o) {
+            if (o.hasOwnProperty(p)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     render() {
         const emptyMessage = (
-            <p>There no invoicing yet.</p>
+            <p> </p>
         );
 
         const rows = _.values(this.props.invoicingEntries)
@@ -27,12 +36,8 @@ export default class InvoicingList extends React.Component {
             });
 
         const invoicingEntriesTable = (
-            <table className="view-projects">
+            <table className="ui striped table">
                 <thead>
-                <tr>
-                    <td className="table-heading" colSpan="4">{this.props.projectName}</td>
-                </tr>
-
                 <tr>
                     <th>Name</th>
                     <th>Week</th>
@@ -48,7 +53,7 @@ export default class InvoicingList extends React.Component {
 
         return (
             <div>
-                {this.props.invoicingEntries === undefined || this.props.invoicingEntries.length === 0 ? emptyMessage : invoicingEntriesTable}
+                { this.isEmpty(this.props.invoicingEntries) ? emptyMessage : invoicingEntriesTable }
             </div>
         );
     }
@@ -56,5 +61,6 @@ export default class InvoicingList extends React.Component {
 
 InvoicingList.propTypes = {
     invoicingEntries: PropTypes.object,
+    onInvoiceChange: PropTypes.func.isRequired,
     projectName: PropTypes.string
 };
