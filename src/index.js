@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import {createStore, applyMiddleware} from "redux";
 import authentication from "./middleware/authentication";
+import messages from "./middleware/messages";
 import reducers from "./reducers/combined";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {Provider} from "react-redux";
@@ -13,7 +14,7 @@ import "./index.css";
 
 const store = createStore(
     reducers,
-    composeWithDevTools(applyMiddleware(ReduxPromise, thunk, authentication))
+    composeWithDevTools(applyMiddleware(ReduxPromise, thunk, authentication, messages))
 );
 
 ReactDOM.render(

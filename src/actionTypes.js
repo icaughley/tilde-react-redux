@@ -9,3 +9,5 @@ export const GET_INVOICING = 'GET_INVOICING';
 export const GET_INVOICING_PROJECTS = 'GET_INVOICING_PROJECTS';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const OPEN_MESSAGE = 'OPEN_MESSAGE';
+export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';

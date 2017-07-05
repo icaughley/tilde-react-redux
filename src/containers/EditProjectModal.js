@@ -14,7 +14,6 @@ class EditProjectModal extends React.Component {
     }
 
     handleSubmit(values) {
-        console.log(values);
         this.handleClose();
         return this.props.updateProject(values);
     }

@@ -1,20 +1,27 @@
-import _ from "lodash";
 import * as ActionTypes from "../actionTypes";
 
-export default function (state = {}, action = {}) {
-
-    if (_.endsWith(action.type, ActionTypes.ERROR_SUFFIX)) {
-        console.log(JSON.stringify(action.payload));
-        return {type: 'error', msg: action.payload.statusText}
+function openMessage(type, msg) {
+    let icon;
+    let header;
+    switch (type) {
+        case "success":
+            icon = "check circle";
+            header = "Success";
+            break;
+        case"error":
+            icon = "warning sign";
+            header = "Error";
+            break;
     }
+    return {open: true, icon, header, type, msg}
+}
 
+export default function (state = {}, action = {}) {
     switch (action.type) {
-        case ActionTypes.UPDATE_PROJECT:
-            return {type: 'success', msg: 'Project updated.'};
-        case ActionTypes.CREATE_PROJECT:
-            return {type: 'success', msg: 'Project created.'};
-        case ActionTypes.DELETE_PROJECT:
-            return {type: 'success', msg: 'Project deleted.'};
+        case ActionTypes.OPEN_MESSAGE:
+            return openMessage(action.payload.type, action.payload.msg);
+        case ActionTypes.CLOSE_MESSAGE:
+            return {...state, open: false};
         default:
             return state;
     }

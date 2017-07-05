@@ -67,3 +67,7 @@ export function login(username, password) {
 export function logout() {
     return {type: ActionTypes.LOGOUT};
 }
+
+export function closeMessage() {
+    return {type: ActionTypes.CLOSE_MESSAGE};
+}
