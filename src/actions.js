@@ -23,18 +23,21 @@ export function fetchProjects(user) {
     return dispatch => callServer(dispatch, ActionTypes.GET_PROJECTS, 'get', `/api/users/${user.id}/projects`);
 }
 
-export function fetchInvoicingEntries(projectID) {
-    return {
-        type: ActionTypes.GET_INVOICING,
-        payload: axios.get(`/api/invoicing/entries/${projectID}`)
-    };
+export function fetchInvoicingEntries(project) {
+    return dispatch => {
+        dispatch({type: ActionTypes.SET_SELECTED_PROJECT, selectedProject: project});
+        callServer(dispatch,
+            ActionTypes.GET_INVOICING,
+            'get',
+            `/api/invoicing/entries/${project.id}`);
+    }
 }
 
 export function fetchInvoicingProjects() {
-    return {
-        type: ActionTypes.GET_INVOICING_PROJECTS,
-        payload: axios.get(`/api/invoicing/projects`)
-    };
+    return dispatch => callServer(dispatch,
+        ActionTypes.GET_INVOICING_PROJECTS,
+        'get',
+        `/api/invoicing/projects`);
 }
 
 export function setProjectCloaked(project, user, value) {

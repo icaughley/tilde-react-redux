@@ -11,3 +11,4 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const OPEN_MESSAGE = 'OPEN_MESSAGE';
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
+export const SET_SELECTED_PROJECT = 'SET_SELECTED_PROJECT';
