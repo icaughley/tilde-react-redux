@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React from "react";
 import PropTypes from "prop-types";
 import InvoicingList from "../components/InvoicingList";
@@ -19,7 +18,7 @@ class InvoicingPage extends React.Component {
         if (projectID === -1) {
             return;
         }
-        const project = _.find(this.props.billableProjects, e => e.id === projectID);
+        const project = this.props.billableProjects[ projectID ];
         return this.props.fetchInvoicingEntries(project);
     }
 
@@ -48,7 +47,8 @@ class InvoicingPage extends React.Component {
 
 InvoicingPage.propTypes = {
     invoicingEntries: PropTypes.object,
-    billableProjects: PropTypes.array.isRequired,
+    selectedProject: PropTypes.object.isRequired,
+    billableProjects: PropTypes.object.isRequired,
     fetchInvoicingEntries: PropTypes.func,
     fetchBillableProjects: PropTypes.func.isRequired
 };
