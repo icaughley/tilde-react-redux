@@ -33,9 +33,9 @@ export function fetchInvoicingEntries(project) {
     }
 }
 
-export function fetchInvoicingProjects() {
+export function fetchBillableProjects() {
     return dispatch => callServer(dispatch,
-        ActionTypes.GET_INVOICING_PROJECTS,
+        ActionTypes.GET_BILLABLE_PROJECTS,
         'get',
         `/api/invoicing/projects`);
 }
