@@ -13,7 +13,7 @@ function openMessage(store, type, msg) {
 export default store => next => action => {
 
     if (_.endsWith(action.type, ActionTypes.ERROR_SUFFIX)) {
-        return openMessage(store, 'error', action.payload.statusText);
+        return openMessage(store, 'error', action.payload ? action.payload.statusText : 'Error contacting server');
     }
     else {
         switch (action.type) {
