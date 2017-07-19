@@ -16,14 +16,16 @@ function buildWeek(existingWork, startDate) {
     const values = _.values(work);
 
     // Convert dates in work to real dates
-    _.each(values, (w) => w.date = moment(w.workdate));
+    _.each(values, w => w.date = moment(w.workdate));
 
-    for (var i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
         const day = startDate.clone().add(i, "days");
-        if (!_.some(values, (w) => w.date.isSame(day))) {
-            work[`New${_.random(9999999999)}`] = {
+        if (!_.some(values, w => w.date.isSame(day))) {
+            const random = `New${_.random(9999999999)}`;
+            work[random] = {
                 row: 0,
-                date: day
+                date: day,
+                random
             };
         }
     }

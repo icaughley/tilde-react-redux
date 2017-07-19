@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {fetchWork, setTimesheetDate} from "../actions";
 import {Button} from "semantic-ui-react";
-
+import WorkList from "../components/WorkList"
 
 class TimeSheetPage extends React.Component {
     componentDidMount() {
@@ -13,15 +13,19 @@ class TimeSheetPage extends React.Component {
     onWeekLeft() {
         this.move(-7);
     }
+
     onMonthLeft() {
         this.move(-28);
     }
+
     onWeekRight() {
         this.move(7);
     }
+
     onMonthRight() {
         this.move(28);
     }
+
     move(days) {
         const newDate = this.props.timesheetDate.clone().add(days, 'days');
         this.props.setTimesheetDate(newDate);
@@ -47,6 +51,8 @@ class TimeSheetPage extends React.Component {
                         className="ui compact icon">
                     <i className="fast forward icon"/>
                 </Button>
+
+                <WorkList work={this.props.work}/>
             </div>
         );
     }
