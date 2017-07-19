@@ -3,12 +3,13 @@ import qs from "qs";
 
 import * as ActionTypes from "./actionTypes";
 
-function callServer(dispatch, actionType, verb, url, data) {
+function callServer(dispatch, actionType, verb, url, data, extra) {
     axios[verb](url, data ? qs.stringify(data) : null)
         .then(response => dispatch(
             {
                 type: actionType,
-                payload: response
+                payload: response,
+                extra
             })
         )
         .catch(err => dispatch(

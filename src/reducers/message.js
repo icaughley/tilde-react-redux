@@ -8,10 +8,11 @@ function openMessage(type, msg) {
             icon = "check circle";
             header = "Success";
             break;
-        case"error":
+        case "error":
             icon = "warning sign";
             header = "Error";
             break;
+        default:
     }
     return {open: true, icon, header, type, msg}
 }

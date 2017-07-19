@@ -26,6 +26,7 @@ export default store => next => action => {
             case ActionTypes.DELETE_PROJECT:
                 openMessage(store, 'success', 'Project deleted.');
                 break;
+            default:
         }
     }
 

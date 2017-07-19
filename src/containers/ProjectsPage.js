@@ -39,6 +39,8 @@ class ProjectsPage extends React.Component {
 
 ProjectsPage.propTypes = {
     projects: PropTypes.object.isRequired,
+    addProject: PropTypes.func.isRequired,
+    deleteProject: PropTypes.func.isRequired,
     fetchProjects: PropTypes.func.isRequired,
     setProjectCloaked: PropTypes.func.isRequired
 };
