@@ -3,6 +3,8 @@ import qs from "qs";
 
 import * as ActionTypes from "./actionTypes";
 
+const DATE_FORMAT = 'YYYY-MM-DD';
+
 function callServer(dispatch, actionType, verb, url, data, extra) {
     axios[verb](url, data ? qs.stringify(data) : null)
         .then(response => dispatch(
@@ -18,6 +20,21 @@ function callServer(dispatch, actionType, verb, url, data, extra) {
                 payload: err.response
             })
         );
+}
+
+// date should be a moment
+export function fetchWork(user, date) {
+    const from = date.format(DATE_FORMAT);
+    const to = date.clone().add(6, 'd').format(DATE_FORMAT);
+    console.log( `GET /api/users/${user.id}/work?from=${from}&to=${to}` );
+    return dispatch => callServer(dispatch, ActionTypes.GET_WORK, 'get', `/api/users/${user.id}/work?from=${from}&to=${to}`, null, date);
+}
+
+export function setTimesheetDate(date) {
+    return {
+        type: ActionTypes.SET_TIMESHEET_DATE,
+        date
+    };
 }
 
 export function fetchProjects(user) {

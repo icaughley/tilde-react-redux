@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import LoginPage from "../containers/LoginPage";
 import ProjectsPage from "../containers/ProjectsPage";
 import InvoicingPage from "../containers/InvoicingPage";
+import TimeSheetPage from "../containers/TimeSheetPage";
 import PageMessage from "../containers/PageMessage";
 import Nav from "../containers/Nav";
 import SecureZone from "../containers/SecureZone";
@@ -23,6 +24,7 @@ class App extends Component {
                                 <PageMessage />
                                 <Route path="/projects" component={ProjectsPage}/>
                                 <Route path="/invoicing" component={InvoicingPage}/>
+                                <Route path="/timeSheet" component={TimeSheetPage}/>
                             </div>
                         </SecureZone>
                     </Switch>
