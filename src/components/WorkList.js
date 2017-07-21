@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import moment from "moment";
 import _ from "lodash";
 
@@ -20,7 +21,7 @@ const tdClassName = (work) => {
     return "";
 };
 
-export default ({days}) => {
+const WorkList = ({days}) => {
     const rows = _.values(days)
         .sort((w1, w2) => {
             if (w1.date.isSame(w2.date)) {
@@ -57,3 +58,9 @@ export default ({days}) => {
         </table>
     );
 };
+
+WorkList.propTypes = {
+    work: PropTypes.object.isRequired
+};
+
+export default WorkList;
