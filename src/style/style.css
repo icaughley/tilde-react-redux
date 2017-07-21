@@ -208,3 +208,15 @@ input.savebutton {
 td.formlabel {
     text-align: right;
 }
+
+td.today {
+    background: #CFC;
+}
+
+td.weekend {
+    background: #F5EBD1;
+}
+
+.ui.table tr:not(.row0):not(:first-child) td{
+    border-top: 0;
+}

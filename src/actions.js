@@ -23,18 +23,13 @@ function callServer(dispatch, actionType, verb, url, data, extra) {
 }
 
 // date should be a moment
-export function fetchWork(user, date) {
-    const from = date.format(DATE_FORMAT);
-    const to = date.clone().add(6, 'd').format(DATE_FORMAT);
-    console.log( `GET /api/users/${user.id}/work?from=${from}&to=${to}` );
-    return dispatch => callServer(dispatch, ActionTypes.GET_WORK, 'get', `/api/users/${user.id}/work?from=${from}&to=${to}`, null, date);
-}
-
-export function setTimesheetDate(date) {
-    return {
-        type: ActionTypes.SET_TIMESHEET_DATE,
-        date
-    };
+export function fetchWork(user, from) {
+    const fromParam = from.format(DATE_FORMAT);
+    const to = from.clone().add(13, 'd');
+    const toParam = to.format(DATE_FORMAT);
+    console.log( `GET /api/users/${user.id}/work?from=${fromParam}&to=${toParam}` );
+    const range = {from,to};
+    return dispatch => callServer(dispatch, ActionTypes.GET_WORK, 'get', `/api/users/${user.id}/work?from=${fromParam}&to=${toParam}`, null, range);
 }
 
 export function fetchProjects(user) {
