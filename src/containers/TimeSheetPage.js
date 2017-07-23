@@ -2,9 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {fetchWork} from "../actions";
-import {Button} from "semantic-ui-react";
-import WorkList from "../components/WorkList";
 import moment from "moment";
+import WorkList from "../components/WorkList";
+import TimeSheetControls from "../components/TimeSheetControls"
 
 class TimeSheetPage extends React.Component {
     defaultStartDate() {
@@ -15,25 +15,25 @@ class TimeSheetPage extends React.Component {
         this.props.fetchWork(this.props.user, this.props.work.range.from || this.defaultStartDate());
     }
 
-    onWeekLeft() {
+    onWeekLeft = () => {
         this.move(-7);
-    }
+    };
 
-    onMonthLeft() {
+    onMonthLeft = () => {
         this.move(-28);
-    }
+    };
 
-    onWeekRight() {
+    onWeekRight = () => {
         this.move(7);
-    }
+    };
 
-    onMonthRight() {
+    onMonthRight = () => {
         this.move(28);
-    }
+    };
 
-    onToday() {
+    onToday = () => {
         this.props.fetchWork(this.props.user, this.defaultStartDate());
-    }
+    };
 
     move(days) {
         const newDate = this.props.work.range.from.clone().add(days, 'days');
@@ -43,28 +43,11 @@ class TimeSheetPage extends React.Component {
     render() {
         return (
             <div className="timesheet-page">
-                <Button.Group>
-                    <Button onClick={this.onMonthLeft.bind(this)}
-                            className="ui compact icon">
-                        <i className="fast backward icon"/>
-                    </Button>
-                    <Button onClick={this.onWeekLeft.bind(this)}
-                            className="ui compact icon">
-                        <i className="step backward icon"/>
-                    </Button>
-                    <Button onClick={this.onToday.bind(this)}
-                            className="ui compact icon">
-                        <i className="calendar outline icon"/>
-                    </Button>
-                    <Button onClick={this.onWeekRight.bind(this)}
-                            className="ui compact icon">
-                        <i className="step forward icon"/>
-                    </Button>
-                    <Button onClick={this.onMonthRight.bind(this)}
-                            className="ui compact icon">
-                        <i className="fast forward icon"/>
-                    </Button>
-                </Button.Group>
+                <TimeSheetControls onWeekLeft={this.onWeekLeft}
+                                   onMonthLeft={this.onMonthLeft}
+                                   onToday={this.onToday}
+                                   onWeekRight={this.onWeekRight}
+                                   onMonthRight={this.onMonthRight}/>
                 <WorkList days={this.props.work.days}/>
             </div>
         );

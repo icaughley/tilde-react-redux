@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
+import {Button} from "semantic-ui-react";
 import _ from "lodash";
 
 const TODAY = moment().startOf("day");
@@ -21,6 +22,30 @@ const tdClassName = (work) => {
     return "";
 };
 
+const viewRow = (w) => {
+    return (
+        <tr className={trClassName(w)} key={w.id || w.random}>
+            <td className={tdClassName(w)}>{w.row === 0 ? w.date.format('YYYY-MM-DD') : ""}</td>
+            <td className={tdClassName(w)}>{w["project-id"]}</td>
+            <td className={tdClassName(w)}>{w.hours}</td>
+            <td className={tdClassName(w)}>{w.comment}</td>
+            <td className={tdClassName(w)}><Button.Group></Button.Group></td>
+        </tr>
+    );
+};
+
+const editRow = (w) => {
+    return (
+        <tr className={trClassName(w)} key={w.id || w.random}>
+            <td className={tdClassName(w)}>{w.row === 0 ? w.date.format('YYYY-MM-DD') : ""}</td>
+            <td className={tdClassName(w)}>{w["project-id"]}</td>
+            <td className={tdClassName(w)}>{w.hours}</td>
+            <td className={tdClassName(w)}>{w.comment}</td>
+            <td className={tdClassName(w)}/>
+        </tr>
+    );
+};
+
 const WorkList = ({days}) => {
     const rows = _.values(days)
         .sort((w1, w2) => {
@@ -30,15 +55,7 @@ const WorkList = ({days}) => {
             return w1.date.isBefore(w2.date) ? -1 : 1;
         })
         .map(w => {
-            return (
-                <tr className={trClassName(w)} key={w.id || w.random}>
-                    <td className={tdClassName(w)}>{w.row === 0 ? w.date.format('YYYY-MM-DD') : ""}</td>
-                    <td className={tdClassName(w)}>{w["project-id"]}</td>
-                    <td className={tdClassName(w)}>{w.hours}</td>
-                    <td className={tdClassName(w)}>{w.comment}</td>
-                    <td className={tdClassName(w)}/>
-                </tr>
-            )
+            return w.editMode ? editRow(w) : viewRow(w);
         });
 
     return (
@@ -60,7 +77,7 @@ const WorkList = ({days}) => {
 };
 
 WorkList.propTypes = {
-    work: PropTypes.object.isRequired
+    days: PropTypes.object.isRequired
 };
 
 export default WorkList;
