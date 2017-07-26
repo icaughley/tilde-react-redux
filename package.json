@@ -21,6 +21,7 @@
     "semantic-ui-react": "^0.68.5"
   },
   "devDependencies": {
+    "jest": "20.0.4",
     "react-scripts": "0.9.5"
   },
   "scripts": {
