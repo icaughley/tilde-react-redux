@@ -3,7 +3,7 @@ import "../style/style.css";
 
 export default () => {
     return (
-        <div className="footer">
+        <div className="page-footer">
             Copyright &copy; 2017, Stock Software
         </div>
     );

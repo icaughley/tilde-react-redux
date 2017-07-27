@@ -5,7 +5,7 @@ import stocksoftware from "../images/stocksoftware.gif";
 
 export default () => {
     return (
-        <div className="page_header">
+        <div className="page-header">
             <a href="http://www.stocksoftware.com.au"><img src={stocksoftware} alt="Stock Software"/></a>
             <img className="logo" src={logo} alt="logo"/>
         </div>

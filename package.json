@@ -22,7 +22,9 @@
     "semantic-ui-react": "^0.68.5"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "enzyme": "2.9.1",
+    "react-scripts": "0.9.5",
+    "react-test-renderer": "15.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

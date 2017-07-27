@@ -1,0 +1,6 @@
+exports[`test Footer has has not changed 1`] = `
+<div
+  className="page-footer">
+  Copyright © 2017, Stock Software
+</div>
+`;

@@ -80,14 +80,14 @@ div.main {
     position: relative;
 }
 
-div.page_header {
+div.page-header {
     margin-top: 4px;
     background: white;
     border-top: 1px solid #a2b7c5;
     border-bottom: 1px solid #a2b7c5;
 }
 
-div.page_header .logo {
+div.page-header .logo {
     float: right;
 }
 
@@ -138,7 +138,7 @@ div.login-page {
     padding-bottom: 50px;
 }
 
-div.footer {
+div.page-footer {
     background: #d5e1e9;
     border-top: 1px solid #a2b7c5;
     padding: 4px;
