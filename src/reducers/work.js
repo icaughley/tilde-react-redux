@@ -6,7 +6,7 @@ import moment from "moment";
 export default function (state = {range: {}, rows: {}}, action = {}) {
     switch (action.type) {
         case ActionTypes.GET_WORK:
-            return handleGetWork(state, action);
+            return handleGetWork(action);
         case ActionTypes.ADD_WORK_ROW:
             return handleAddNewRow(state, action);
         case ActionTypes.EDIT_WORK_ROW:
@@ -26,6 +26,7 @@ function handleAddNewRow(state, action) {
         key: newRandom(),
         date: action.date,
         row: nextRowNum,
+        firstRowForDate: false,
         editMode: true
     };
     const newState = {
@@ -36,14 +37,20 @@ function handleAddNewRow(state, action) {
     return newState;
 }
 
-function handleGetWork(state, action) {
+function handleGetWork(action) {
     const range = action.extra;
-    const rows = _.mapKeys(action.payload.data, 'id');
+
+    // Copy the data from the action into a new "rows" object.
+    const rows = _.mapKeys(_.map(action.payload.data, w => {return {...w};}), 'id');
     const values = _.values(rows);
 
     // Convert dates in work to real dates
-    _.each(values, w => w.date = moment(w.workdate));
-    _.each(values, w => w.key = w.id);
+    _.each(values, w => {
+        w.date = moment(w.workdate);
+        w.key = w.id;
+        w.editMode = false;
+    });
+
     const numDays = range.to.diff(range.from, "days") + 1;
 
     for (let i = 0; i < numDays; i++) {
@@ -52,6 +59,7 @@ function handleGetWork(state, action) {
             const key = newRandom();
             rows[key] = {
                 row: 0,
+                editMode: true,
                 date,
                 key
             };
@@ -70,7 +78,7 @@ function handleGetWork(state, action) {
 function handleEditRow(state, action) {
     const newState = {
         range: {...state.range},
-        rows: {...state.rows}
+        rows: _.cloneDeep(state.rows)
     };
     newState.rows[action.key].editMode = true;
     return newState;
@@ -78,11 +86,12 @@ function handleEditRow(state, action) {
 
 function handleDeleteRow(state, action) {
     const row = action.payload.data;
+    const key = row.key || row.id;
     const newState = {
         range: {...state.range},
         rows: {...state.rows}
     };
-    delete newState.rows[row.key];
+    delete newState.rows[key];
     return newState;
 }
 

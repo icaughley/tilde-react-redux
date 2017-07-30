@@ -17,6 +17,7 @@ test('handles action of type GET_PROJECTS', () => {
     const state = {};
 
     deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action)).toEqual({12: data1, 13: data2});
 });
@@ -26,6 +27,7 @@ test('handles action of type SET_PROJECT_CLOAKED', () => {
     const state = {12: {id: 12, cloaked: false}};
 
     deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action)).toEqual({12: {id: 12, cloaked: true}});
 });
@@ -35,6 +37,7 @@ test('handles action of type UPDATE_PROJECT', () => {
     const state = {13: {id: 13, name: "Foo"}};
 
     deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action)).toEqual({13: {id: 13, name: "Bob"}});
 });
@@ -44,6 +47,7 @@ test('handles action of type CREATE_PROJECT', () => {
     const state = {};
 
     deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action)).toEqual({14: {id: 14, name: "Bob"}});
 });
@@ -53,6 +57,7 @@ test('handles action of type DELETE_PROJECT', () => {
     const state = {15: {id: 15, name: "bob"}};
 
     deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action)).toEqual({});
 });

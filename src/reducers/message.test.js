@@ -1,6 +1,6 @@
-import deepFreeze from "deep-freeze"
+import deepFreeze from "deep-freeze";
 import reduce from "./message";
-import {OPEN_MESSAGE, CLOSE_MESSAGE} from "../actionTypes";
+import {CLOSE_MESSAGE, OPEN_MESSAGE} from "../actionTypes";
 
 test('provides the initial state', () => {
     expect(reduce()).toEqual({});
@@ -14,7 +14,8 @@ test('handles action of type OPEN_MESSAGE with success message', () => {
     const action = {type: OPEN_MESSAGE, payload: {type: "success", msg: "The message"}};
     const state = {};
 
-    deepFreeze( state );
+    deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action))
         .toEqual({
@@ -30,7 +31,8 @@ test('handles action of type OPEN_MESSAGE with error message', () => {
     const action = {type: OPEN_MESSAGE, payload: {type: "error", msg: "The message"}};
     const state = {};
 
-    deepFreeze( state );
+    deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action))
         .toEqual({
@@ -52,7 +54,8 @@ test('handles action of type CLOSE_MESSAGE', () => {
         msg: "The message"
     };
 
-    deepFreeze( state );
+    deepFreeze(state);
+    deepFreeze(action);
 
     expect(reduce(state, action))
         .toEqual({
