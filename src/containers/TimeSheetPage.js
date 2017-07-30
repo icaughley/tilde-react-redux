@@ -1,10 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {fetchWork} from "../actions";
 import moment from "moment";
 import WorkList from "../components/WorkList";
-import TimeSheetControls from "../components/TimeSheetControls"
+import TimeSheetControls from "../components/TimeSheetControls";
+import {addWorkRow, deleteWorkRow, fetchWork, editWorkRow} from "../actions";
+
 
 class TimeSheetPage extends React.Component {
     defaultStartDate() {
@@ -35,6 +36,27 @@ class TimeSheetPage extends React.Component {
         this.props.fetchWork(this.props.user, this.defaultStartDate());
     };
 
+    onAdd = (workRow) => {
+        this.props.addWorkRow(workRow.date);
+    };
+
+    onDelete = (workRow) => {
+        this.props.deleteWorkRow(workRow);
+    };
+
+    onEdit = (workRow) => {
+        this.props.editWorkRow(workRow);
+    };
+
+    onSave = (a, b, c, d, e) => {
+        alert("Save!");
+        console.log(a);
+        console.log(b);
+        console.log(c);
+        console.log(d);
+        console.log(e);
+    };
+
     move(days) {
         const newDate = this.props.work.range.from.clone().add(days, 'days');
         this.props.fetchWork(this.props.user, newDate);
@@ -48,7 +70,11 @@ class TimeSheetPage extends React.Component {
                                    onToday={this.onToday}
                                    onWeekRight={this.onWeekRight}
                                    onMonthRight={this.onMonthRight}/>
-                <WorkList days={this.props.work.days}/>
+                <WorkList rows={this.props.work.rows}
+                          onSave={this.onSave}
+                          onAdd={this.onAdd}
+                          onEdit={this.onEdit}
+                          onDelete={this.onDelete}/>
             </div>
         );
     }
@@ -56,7 +82,10 @@ class TimeSheetPage extends React.Component {
 
 TimeSheetPage.propTypes = {
     work: PropTypes.object.isRequired,
-    fetchWork: PropTypes.func.isRequired
+    fetchWork: PropTypes.func.isRequired,
+    addWorkRow: PropTypes.func.isRequired,
+    editWorkRow: PropTypes.func.isRequired,
+    deleteWorkRow: PropTypes.func.isRequired
 };
 
 function mapStateToProps({auth, work, timesheetDate}) {
@@ -67,4 +96,4 @@ function mapStateToProps({auth, work, timesheetDate}) {
     }
 }
 
-export default connect(mapStateToProps, {fetchWork})(TimeSheetPage);
+export default connect(mapStateToProps, {fetchWork, addWorkRow, deleteWorkRow, editWorkRow})(TimeSheetPage);

@@ -21,10 +21,10 @@ export default class AddProjectModal extends React.Component {
         modalOpen: false,
     });
 
-    handleSubmit(values) {
+    handleSubmit = (values) => {
         this.handleClose();
         return this.props.onSubmit(values);
-    }
+    };
 
     render() {
         return (
@@ -34,7 +34,7 @@ export default class AddProjectModal extends React.Component {
                    onClose={this.handleClose}
                    closeIcon={true}>
                 <Modal.Header>Add Project</Modal.Header>
-                <Modal.Content><ProjectForm onSubmit={this.handleSubmit.bind(this)}/></Modal.Content>
+                <Modal.Content><ProjectForm onSubmit={this.handleSubmit}/></Modal.Content>
             </Modal>
         );
     }

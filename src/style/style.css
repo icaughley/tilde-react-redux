@@ -74,9 +74,9 @@ a:hover {
 /*-------------------------------------  divs  ------------------------------------------*/
 
 div.main {
-    width: 700px;
+    width: 900px;
     left: 50%;
-    margin-left: -350px;
+    margin-left: -450px;
     position: relative;
 }
 
@@ -122,7 +122,7 @@ div.page-holder {
 
 div.page-message {
     position: fixed;
-    width: 700px;
+    width: 900px;
     top: 75px;
     transition: 1s;
     z-index: 300;
@@ -133,6 +133,8 @@ div.page-message.closed {
 }
 
 div.login-page {
+    width: 500px;
+    margin-left: 200px;
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -215,6 +217,10 @@ td.today {
 
 td.weekend {
     background: #F5EBD1;
+}
+
+th.minWidthCell {
+    width: 1px;
 }
 
 .ui.table tr:not(.row0):not(:first-child) td{

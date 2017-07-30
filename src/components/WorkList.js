@@ -3,81 +3,116 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import {Button} from "semantic-ui-react";
 import _ from "lodash";
+import WorkRowForm from "../forms/WorkRowForm";
 
 const TODAY = moment().startOf("day");
 
-const trClassName = (work) => {
-    return work.row === 0 ? "row0" : "";
+const trClassName = (workRow) => {
+    return workRow.row === 0 ? "row0" : "";
 };
 
-const tdClassName = (work) => {
-    console.log("" + work.date.isoWeekday() + ": " + (work.date.isoWeekday() > 5 ));
-    if (work.date.isSame(TODAY)) {
+const tdClassName = (workRow) => {
+    if (workRow.date.isSame(TODAY)) {
         return "today";
     }
-    if (work.date.isoWeekday() > 5) {
+    if (workRow.date.isoWeekday() > 5) {
         return "weekend";
     }
 
     return "";
 };
 
-const viewRow = (w) => {
+const addCell = (workRow, onAdd) => (
+    <Button type="button"
+            onClick={onAdd.bind(null, workRow)}
+            className="ui compact icon">
+        <i className="add icon"/>
+    </Button>
+);
+
+const dateCell = (workRow, onAdd) => (
+    <span>
+        {workRow.date.format('YYYY-MM-DD')}
+    </span>
+);
+
+const viewRow = (workRow, onAdd, onDelete, onEdit) => {
     return (
-        <tr className={trClassName(w)} key={w.id || w.random}>
-            <td className={tdClassName(w)}>{w.row === 0 ? w.date.format('YYYY-MM-DD') : ""}</td>
-            <td className={tdClassName(w)}>{w["project-id"]}</td>
-            <td className={tdClassName(w)}>{w.hours}</td>
-            <td className={tdClassName(w)}>{w.comment}</td>
-            <td className={tdClassName(w)}><Button.Group></Button.Group></td>
+        <tr className={trClassName(workRow)} key={workRow.key}>
+            <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}</td>
+            <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? dateCell(workRow) : ""}</td>
+            <td className={tdClassName(workRow)}>{workRow["project-id"]}</td>
+            <td className={tdClassName(workRow)}>{workRow.hours}</td>
+            <td className={tdClassName(workRow)}>{workRow.comment}</td>
+            <td className={tdClassName(workRow)}>
+                <Button.Group>
+                    <Button type="button"
+                            onClick={onEdit.bind(null, workRow)}
+                            className="ui compact icon">
+                        <i className="edit icon"/>
+                    </Button>
+                    <Button type="button"
+                            onClick={onDelete.bind(null, workRow)}
+                            className="ui compact icon">
+                        <i className="red trash outline icon"/>
+                    </Button>
+                </Button.Group>
+            </td>
         </tr>
     );
 };
 
-const editRow = (w) => {
+const editRow = (workRow, onSave, onAdd) => {
+    const key = workRow.key;
     return (
-        <tr className={trClassName(w)} key={w.id || w.random}>
-            <td className={tdClassName(w)}>{w.row === 0 ? w.date.format('YYYY-MM-DD') : ""}</td>
-            <td className={tdClassName(w)}>{w["project-id"]}</td>
-            <td className={tdClassName(w)}>{w.hours}</td>
-            <td className={tdClassName(w)}>{w.comment}</td>
-            <td className={tdClassName(w)}/>
-        </tr>
+        <WorkRowForm workRow={workRow}
+                     addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
+                     dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
+                     onSave={onSave}
+                     trClassName={trClassName(workRow)}
+                     tdClassName={tdClassName(workRow)}
+                     form={`WorkRow${key}`}
+                     key={key}/>
     );
 };
 
-const WorkList = ({days}) => {
-    const rows = _.values(days)
-        .sort((w1, w2) => {
-            if (w1.date.isSame(w2.date)) {
-                return w1.row - w2.row;
+const WorkList = ({rows, onAdd, onDelete, onSave, onEdit}) => {
+    const tableRows = _.values(rows)
+        .sort((workRow1, workRow2) => {
+            if (workRow1.date.isSame(workRow2.date)) {
+                return workRow1.row - workRow2.row;
             }
-            return w1.date.isBefore(w2.date) ? -1 : 1;
+            return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
         })
-        .map(w => {
-            return w.editMode ? editRow(w) : viewRow(w);
+        .map(workRow => {
+            return workRow.editMode ? editRow(workRow, onSave, onAdd) : viewRow(workRow, onAdd, onDelete, onEdit);
         });
 
     return (
         <table className="ui striped table">
             <thead>
             <tr>
+                <th className="minWidthCell"/>
                 <th>Date</th>
                 <th>Project</th>
                 <th>Hours</th>
                 <th>Comment</th>
-                <th/>
+                <th className="minWidthCell"/>
             </tr>
             </thead>
             <tbody>
-            {rows}
+            {tableRows}
             </tbody>
         </table>
     );
 };
 
 WorkList.propTypes = {
-    days: PropTypes.object.isRequired
+    rows: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };
 
 export default WorkList;

@@ -13,3 +13,6 @@ export const OPEN_MESSAGE = 'OPEN_MESSAGE';
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
 export const SET_SELECTED_PROJECT = 'SET_SELECTED_PROJECT';
 export const GET_WORK = 'GET_WORK';
+export const ADD_WORK_ROW = 'ADD_WORK_ROW';
+export const EDIT_WORK_ROW = 'EDIT_WORK_ROW';
+export const DELETE_WORK_ROW = 'DELETE_WORK_ROW';

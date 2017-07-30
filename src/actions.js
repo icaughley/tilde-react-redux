@@ -27,9 +27,36 @@ export function fetchWork(user, from) {
     const fromParam = from.format(DATE_FORMAT);
     const to = from.clone().add(13, 'd');
     const toParam = to.format(DATE_FORMAT);
-    console.log( `GET /api/users/${user.id}/work?from=${fromParam}&to=${toParam}` );
-    const range = {from,to};
+    console.log(`GET /api/users/${user.id}/work?from=${fromParam}&to=${toParam}`);
+    const range = {from, to};
     return dispatch => callServer(dispatch, ActionTypes.GET_WORK, 'get', `/api/users/${user.id}/work?from=${fromParam}&to=${toParam}`, null, range);
+}
+
+export function addWorkRow(date) {
+    return {
+        type: ActionTypes.ADD_WORK_ROW,
+        date
+    }
+}
+
+export function editWorkRow(row) {
+    return {
+        type: ActionTypes.EDIT_WORK_ROW,
+        key: row.key
+    }
+}
+
+export function deleteWorkRow(row) {
+    console.log(row);
+    if (row.id) {
+        // TODO: remove from server
+    }
+    else {
+        return {
+            type: ActionTypes.DELETE_WORK_ROW,
+            payload: {data:row}
+        }
+    }
 }
 
 export function fetchProjects(user) {

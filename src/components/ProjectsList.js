@@ -38,7 +38,7 @@ const ProjectsList = (props) => {
                     <td className="center aligned">
                         <input type="checkbox"
                                checked={project.cloaked ? "checked" : ""}
-                               onChange={onCloakedChange.bind(this, project)}/>
+                               onChange={onCloakedChange.bind(null, project)}/>
                     </td>
                     <td className={tdClassName(project, "center aligned")}>{tickCross(project.working)}</td>
                     <td className={tdClassName(project, "center aligned")}>{tickCross(project.billable)}</td>
@@ -47,7 +47,7 @@ const ProjectsList = (props) => {
                             <Link to={"/projects/" + project.id} className="ui compact icon button">
                                 <i className="edit icon"/>
                             </Link>
-                            <Button onClick={onDelete.bind(this, project)}
+                            <Button onClick={onDelete.bind(null, project)}
                                     className="ui compact icon red button">
                                 <i className="trash icon"/>
                             </Button>
