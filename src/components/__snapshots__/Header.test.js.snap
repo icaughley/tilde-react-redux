@@ -1,4 +1,4 @@
-exports[`test Header has has not changed 1`] = `
+exports[`Header component has not changed 1`] = `
 <div
   className="page-header">
   <a
