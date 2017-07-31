@@ -223,6 +223,6 @@ th.minWidthCell {
     width: 1px;
 }
 
-.ui.table tr:not(.row0):not(:first-child) td{
+.ui.table tr:not(.firstRow):not(:first-child) td{
     border-top: 0;
 }

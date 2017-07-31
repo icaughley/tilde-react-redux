@@ -67,7 +67,7 @@ function handleGetWork(action) {
     }
 
     let d = null;
-    _.each(rows, (row) => {
+    _.each(sortedRows(rows), (row) => {
         row.firstRowForDate = !row.date.isSame(d);
         d = row.date;
     });
@@ -98,3 +98,13 @@ function handleDeleteRow(state, action) {
 function newRandom() {
     return `New${_.random(9999999999)}`;
 }
+
+const sortedRows = (rows) =>
+    _.values(rows)
+        .sort((workRow1, workRow2) => {
+            if (workRow1.date.isSame(workRow2.date)) {
+                return workRow1.row - workRow2.row;
+            }
+            return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
+        });
+

@@ -8,7 +8,7 @@ import WorkRowForm from "../forms/WorkRowForm";
 const TODAY = moment().startOf("day");
 
 const trClassName = (workRow) => {
-    return workRow.row === 0 ? "row0" : "";
+    return workRow.firstRowForDate ? "firstRow" : "";
 };
 
 const tdClassName = (workRow) => {
