@@ -10,6 +10,6 @@ describe('Footer component', () => {
 
     it('has the correct class', () => {
         const component = shallow(<Footer />);
-        expect(component.hasClass('page-footer')).toEqual(true);
+        expect(component.is('.page-footer')).toEqual(true);
     });
 });

@@ -10,6 +10,6 @@ describe('Header component', () => {
 
     it('has the correct class', () => {
         const component = shallow(<Header />);
-        expect(component.hasClass('page-header')).toEqual(true);
+        expect(component.is('.page-header')).toEqual(true);
     });
 });
