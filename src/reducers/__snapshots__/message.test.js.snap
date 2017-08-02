@@ -1,0 +1,29 @@
+exports[`Message reducer handles action of type CLOSE_MESSAGE 1`] = `
+Object {
+  "header": "Error",
+  "icon": "warning sign",
+  "msg": "The message",
+  "open": false,
+  "type": "error",
+}
+`;
+
+exports[`Message reducer handles action of type OPEN_MESSAGE with error message 1`] = `
+Object {
+  "header": "Error",
+  "icon": "warning sign",
+  "msg": "The message",
+  "open": true,
+  "type": "error",
+}
+`;
+
+exports[`Message reducer handles action of type OPEN_MESSAGE with success message 1`] = `
+Object {
+  "header": "Success",
+  "icon": "check circle",
+  "msg": "The message",
+  "open": true,
+  "type": "success",
+}
+`;

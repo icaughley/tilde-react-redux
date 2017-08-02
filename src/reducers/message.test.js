@@ -18,14 +18,7 @@ describe('Message reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action))
-            .toEqual({
-                open: true,
-                icon: "check circle",
-                header: "Success",
-                type: "success",
-                msg: "The message"
-            });
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type OPEN_MESSAGE with error message', () => {
@@ -35,14 +28,7 @@ describe('Message reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action))
-            .toEqual({
-                open: true,
-                icon: "warning sign",
-                header: "Error",
-                type: "error",
-                msg: "The message"
-            });
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type CLOSE_MESSAGE', () => {
@@ -58,13 +44,6 @@ describe('Message reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action))
-            .toEqual({
-                open: false,
-                icon: "warning sign",
-                header: "Error",
-                type: "error",
-                msg: "The message"
-            });
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 });

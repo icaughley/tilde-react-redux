@@ -20,7 +20,7 @@ describe('Projects reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action)).toEqual({12: data1, 13: data2});
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type SET_PROJECT_CLOAKED', () => {
@@ -30,7 +30,7 @@ describe('Projects reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action)).toEqual({12: {id: 12, cloaked: true}});
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type UPDATE_PROJECT', () => {
@@ -40,7 +40,7 @@ describe('Projects reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action)).toEqual({13: {id: 13, name: "Bob"}});
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type CREATE_PROJECT', () => {
@@ -50,7 +50,7 @@ describe('Projects reducer', () => {
         deepFreeze(state);
         deepFreeze(action);
 
-        expect(reduce(state, action)).toEqual({14: {id: 14, name: "Bob"}});
+        expect(reduce(state, action)).toMatchSnapshot();
     });
 
     it('handles action of type DELETE_PROJECT', () => {

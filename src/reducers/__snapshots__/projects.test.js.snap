@@ -1,0 +1,39 @@
+exports[`Projects reducer handles action of type CREATE_PROJECT 1`] = `
+Object {
+  "14": Object {
+    "id": 14,
+    "name": "Bob",
+  },
+}
+`;
+
+exports[`Projects reducer handles action of type GET_PROJECTS 1`] = `
+Object {
+  "12": Object {
+    "id": 12,
+    "name": "a",
+  },
+  "13": Object {
+    "id": 13,
+    "name": "b",
+  },
+}
+`;
+
+exports[`Projects reducer handles action of type SET_PROJECT_CLOAKED 1`] = `
+Object {
+  "12": Object {
+    "cloaked": true,
+    "id": 12,
+  },
+}
+`;
+
+exports[`Projects reducer handles action of type UPDATE_PROJECT 1`] = `
+Object {
+  "13": Object {
+    "id": 13,
+    "name": "Bob",
+  },
+}
+`;
