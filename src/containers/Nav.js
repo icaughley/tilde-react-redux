@@ -3,7 +3,6 @@ import {push} from "react-router-redux";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {logout} from "../actions";
-import "../style/style.css";
 
 class Nav extends Component {
     toTimeSheet = () => {

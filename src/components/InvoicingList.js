@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
-import "../style/style.css";
 
 export default class InvoicingList extends React.Component {
     onInvoiceChange(invoicing, e) {

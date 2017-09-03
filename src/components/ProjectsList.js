@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import {Button} from "semantic-ui-react";
-import "../style/style.css";
 
 const ProjectsList = (props) => {
     const onCloakedChange = (project, e) => {

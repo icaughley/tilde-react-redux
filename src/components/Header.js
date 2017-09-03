@@ -1,5 +1,4 @@
 import React from "react";
-import "../style/style.css";
 import logo from "../images/logo.gif";
 import stocksoftware from "../images/stocksoftware.gif";
 
