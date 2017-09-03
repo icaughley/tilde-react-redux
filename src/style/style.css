@@ -1,8 +1,11 @@
+html, body {
+    font-size: 12px;
+}
+
 body {
     background: white;
     margin: 10px;
     padding: 0;
-    font-size: 12px;
 }
 
 body, div, p, th, td {
@@ -225,4 +228,8 @@ th.minWidthCell {
 
 .ui.table tr:not(.firstRow):not(:first-child) td{
     border-top: 0;
+}
+
+#timesheet-page .field.hoursField .ui.input, th.hoursField{
+    width: 75px;
 }

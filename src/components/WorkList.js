@@ -62,10 +62,11 @@ const viewRow = (workRow, onAdd, onDelete, onEdit) => {
     );
 };
 
-const editRow = (workRow, onSave, onAdd) => {
+const editRow = (workRow, onSave, onAdd, projectOptions) => {
     const key = workRow.key;
     return (
         <WorkRowForm workRow={workRow}
+                     projectOptions={projectOptions}
                      addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
                      dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
                      onSave={onSave}
@@ -76,7 +77,7 @@ const editRow = (workRow, onSave, onAdd) => {
     );
 };
 
-const WorkList = ({rows, onAdd, onDelete, onSave, onEdit}) => {
+const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, projectOptions}) => {
     const tableRows = _.values(rows)
         .sort((workRow1, workRow2) => {
             if (workRow1.date.isSame(workRow2.date)) {
@@ -85,7 +86,7 @@ const WorkList = ({rows, onAdd, onDelete, onSave, onEdit}) => {
             return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
         })
         .map(workRow => {
-            return workRow.editMode ? editRow(workRow, onSave, onAdd) : viewRow(workRow, onAdd, onDelete, onEdit);
+            return workRow.editMode ? editRow(workRow, onSave, onAdd, projectOptions) : viewRow(workRow, onAdd, onDelete, onEdit);
         });
 
     return (
@@ -95,7 +96,7 @@ const WorkList = ({rows, onAdd, onDelete, onSave, onEdit}) => {
                 <th className="minWidthCell"/>
                 <th>Date</th>
                 <th>Project</th>
-                <th>Hours</th>
+                <th className="hoursField">Hours</th>
                 <th>Comment</th>
                 <th className="minWidthCell"/>
             </tr>

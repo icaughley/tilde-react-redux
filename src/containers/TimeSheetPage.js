@@ -1,10 +1,11 @@
 import React from "react";
+import _ from "lodash";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import moment from "moment";
 import WorkList from "../components/WorkList";
 import TimeSheetControls from "../components/TimeSheetControls";
-import {addWorkRow, deleteWorkRow, fetchWork, editWorkRow} from "../actions";
+import {addWorkRow, deleteWorkRow, editWorkRow, fetchProjects, fetchWork} from "../actions";
 
 
 class TimeSheetPage extends React.Component {
@@ -14,6 +15,7 @@ class TimeSheetPage extends React.Component {
 
     componentDidMount() {
         this.props.fetchWork(this.props.user, this.props.work.range.from || this.defaultStartDate());
+        this.props.fetchProjects(this.props.user);
     }
 
     onWeekLeft = () => {
@@ -48,13 +50,10 @@ class TimeSheetPage extends React.Component {
         this.props.editWorkRow(workRow);
     };
 
-    onSave = (a, b, c, d, e) => {
-        alert("Save!");
-        console.log(a);
-        console.log(b);
-        console.log(c);
-        console.log(d);
-        console.log(e);
+    onSave = (values) => {
+//{project: 121, hours: "12", comment: "hi there"}
+        console.log(values);
+
     };
 
     move(days) {
@@ -64,13 +63,14 @@ class TimeSheetPage extends React.Component {
 
     render() {
         return (
-            <div className="timesheet-page">
+            <div id="timesheet-page">
                 <TimeSheetControls onWeekLeft={this.onWeekLeft}
                                    onMonthLeft={this.onMonthLeft}
                                    onToday={this.onToday}
                                    onWeekRight={this.onWeekRight}
                                    onMonthRight={this.onMonthRight}/>
                 <WorkList rows={this.props.work.rows}
+                          projectOptions={this.props.projectOptions}
                           onSave={this.onSave}
                           onAdd={this.onAdd}
                           onEdit={this.onEdit}
@@ -82,18 +82,31 @@ class TimeSheetPage extends React.Component {
 
 TimeSheetPage.propTypes = {
     work: PropTypes.object.isRequired,
+    projectOptions: PropTypes.array.isRequired,
     fetchWork: PropTypes.func.isRequired,
     addWorkRow: PropTypes.func.isRequired,
     editWorkRow: PropTypes.func.isRequired,
     deleteWorkRow: PropTypes.func.isRequired
 };
 
-function mapStateToProps({auth, work, timesheetDate}) {
+function mapStateToProps({auth, work, timesheetDate, projects}) {
+    const uncloakedProjects = _.pickBy(projects, p => !p.cloaked);
+    const projectOptions = _.values(uncloakedProjects).map(p => {
+        return {value: p.id, text: p.name}
+    });
+
     return {
         user: auth.user,
         work,
-        timesheetDate
+        timesheetDate,
+        projectOptions: projectOptions.sort((p1, p2) => p1.text.localeCompare(p2.text))
     }
 }
 
-export default connect(mapStateToProps, {fetchWork, addWorkRow, deleteWorkRow, editWorkRow})(TimeSheetPage);
+export default connect(mapStateToProps, {
+    fetchWork,
+    fetchProjects,
+    addWorkRow,
+    deleteWorkRow,
+    editWorkRow
+})(TimeSheetPage);

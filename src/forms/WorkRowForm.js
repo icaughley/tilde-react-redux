@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {Button} from "semantic-ui-react";
 import {Field, reduxForm} from "redux-form";
+import {renderField} from "../helpers/tableFormHelper"
 
 const required = value => (value ? undefined : 'Must not be blank');
 
@@ -15,13 +16,13 @@ const WorkRowForm = (props) => {
                 {props.dateCell}
             </td>
             <td className={props.tdClassName}>
-                <Field name="project" type="text" component="input" validate={[required]}/>
+                <Field name="project" type="select" component={renderField} validate={[required]} props={{options: props.projectOptions}}/>
             </td>
             <td className={props.tdClassName}>
-                <Field name="hours" type="text" component="input" validate={[required]}/>
+                <Field name="hours" type="text" component={renderField} validate={[required]} props={{className: "hoursField"}}/>
             </td>
             <td className={props.tdClassName}>
-                <Field name="comment" type="text" component="input"/>
+                <Field name="comment" type="text" component={renderField}/>
             </td>
             <td className={props.tdClassName}>
                 <Button.Group>
@@ -44,6 +45,7 @@ const WorkRowForm = (props) => {
 
 WorkRowForm.propTypes = {
     workRow: PropTypes.object.isRequired,
+    projectOptions: PropTypes.array.isRequired,
     trClassName: PropTypes.string.isRequired,
     tdClassName: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired
