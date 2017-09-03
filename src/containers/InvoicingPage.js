@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import InvoicingList from "../components/InvoicingList";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import {fetchInvoicingEntries, fetchBillableProjects} from "../actions";
 import {billableProjectsSelector} from "../selectors/selectors";
 import SelectInput from "../components/common/SelectInput";
@@ -57,4 +56,4 @@ function mapStateToProps({billableProjects, invoicingEntries, selectedProject}) 
     return {billableProjects, invoicingEntries, selectedProject};
 }
 
-export default connect(mapStateToProps, {fetchBillableProjects, fetchInvoicingEntries})(withRouter(InvoicingPage));
+export default connect(mapStateToProps, {fetchBillableProjects, fetchInvoicingEntries})(InvoicingPage);

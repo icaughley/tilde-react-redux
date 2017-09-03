@@ -2,6 +2,14 @@ import _ from "lodash";
 import * as ActionTypes from "../actionTypes";
 import moment from "moment";
 
+const sortedRows = (rows) =>
+    _.values(rows)
+        .sort((workRow1, workRow2) => {
+            if (workRow1.date.isSame(workRow2.date)) {
+                return workRow1.row - workRow2.row;
+            }
+            return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
+        });
 
 export default function (state = {range: {}, rows: {}}, action = {}) {
     switch (action.type) {
@@ -99,12 +107,4 @@ function newRandom() {
     return `New${_.random(9999999999)}`;
 }
 
-const sortedRows = (rows) =>
-    _.values(rows)
-        .sort((workRow1, workRow2) => {
-            if (workRow1.date.isSame(workRow2.date)) {
-                return workRow1.row - workRow2.row;
-            }
-            return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
-        });
 

@@ -1,5 +1,6 @@
 import React from "react";
-import {Route} from "react-router-dom";
+import {Route} from "react-router";
+import {push} from "react-router-redux"
 import PropTypes from "prop-types";
 import ProjectsList from "../components/ProjectsList";
 import {connect} from "react-redux";
@@ -12,26 +13,31 @@ class ProjectsPage extends React.Component {
         this.props.fetchProjects(this.props.user);
     }
 
-    onCloakedChange(project, value) {
+    onCloakedChange = (project, value) => {
         this.props.setProjectCloaked(project, this.props.user, value);
-    }
+    };
 
-    onAddProjectSubmitted(values) {
+    onAddProjectSubmitted = (values) => {
         this.props.addProject(values);
-    }
+    };
 
-    onDelete(project) {
+    onDelete = (project) => {
         this.props.deleteProject(project);
-    }
+    };
+
+    toProject = (project) => {
+        this.props.push("/projects/" + project.id);
+    };
 
     render() {
         return (
             <div className="projects-page">
                 <Route path="/projects/:id" component={EditModal}/>
-                <h1>Projects List <AddModal onSubmit={this.onAddProjectSubmitted.bind(this)}/></h1>
+                <h1>Projects List <AddModal onSubmit={this.onAddProjectSubmitted}/></h1>
                 <ProjectsList projects={this.props.projects}
-                              onCloakedChange={this.onCloakedChange.bind(this)}
-                              onDelete={this.onDelete.bind(this)}/>
+                              onCloakedChange={this.onCloakedChange}
+                              onDelete={this.onDelete}
+                              toProject={this.toProject}/>
             </div>
         );
     }
@@ -52,4 +58,4 @@ function mapStateToProps({auth, projects}) {
     }
 }
 
-export default connect(mapStateToProps, {fetchProjects, setProjectCloaked, addProject, deleteProject})(ProjectsPage);
+export default connect(mapStateToProps, {push, fetchProjects, setProjectCloaked, addProject, deleteProject})(ProjectsPage);

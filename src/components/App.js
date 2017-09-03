@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoginPage from "../containers/LoginPage";
@@ -14,20 +14,18 @@ export default () => {
     return (
         <div className="main">
             <Header />
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/login" component={LoginPage}/>
-                    <SecureZone>
-                        <Nav />
-                        <div className="page-holder">
-                            <PageMessage />
-                            <Route path="/projects" component={ProjectsPage}/>
-                            <Route path="/invoicing" component={InvoicingPage}/>
-                            <Route path="/timeSheet" component={TimeSheetPage}/>
-                        </div>
-                    </SecureZone>
-                </Switch>
-            </BrowserRouter>
+            <Switch>
+                <Route path="/login" component={LoginPage}/>
+                <SecureZone>
+                    <Nav />
+                    <div className="page-holder">
+                        <PageMessage />
+                        <Route path="/projects" component={ProjectsPage}/>
+                        <Route path="/invoicing" component={InvoicingPage}/>
+                        <Route path="/timeSheet" component={TimeSheetPage}/>
+                    </div>
+                </SecureZone>
+            </Switch>
             <Footer />
         </div>
     );

@@ -11,7 +11,8 @@ describe('ProjectList', () => {
             2: {id: 2, name: "project2"}
         },
         onCloakedChange: jest.fn(),
-        onDelete: jest.fn()
+        onDelete: jest.fn(),
+        toProject: jest.fn()
     };
 
     // Render the component for each test

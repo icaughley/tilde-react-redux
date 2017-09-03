@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 import _ from "lodash";
 import {Button} from "semantic-ui-react";
 import "../style/style.css";
@@ -12,6 +11,10 @@ const ProjectsList = (props) => {
 
     const onDelete = (project) => {
         props.onDelete(project);
+    };
+
+    const toProject = (project) => {
+        props.toProject(project);
     };
 
     const tickCross = (state) => {
@@ -44,9 +47,9 @@ const ProjectsList = (props) => {
                     <td className={tdClassName(project, "center aligned")}>{tickCross(project.billable)}</td>
                     <td className="center aligned">
                         <div className="ui icon buttons">
-                            <Link to={"/projects/" + project.id} className="ui compact icon button">
+                            <a href="#" onClick={toProject.bind(null, project)} className="ui compact icon button">
                                 <i className="edit icon"/>
-                            </Link>
+                            </a>
                             <Button onClick={onDelete.bind(null, project)}
                                     className="ui compact icon red button">
                                 <i className="trash icon"/>
@@ -85,7 +88,8 @@ const ProjectsList = (props) => {
 ProjectsList.propTypes = {
     projects: PropTypes.object.isRequired,
     onCloakedChange: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onDelete: PropTypes.func.isRequired,
+    toProject: PropTypes.func.isRequired
 };
 
 export default ProjectsList;
