@@ -27,7 +27,6 @@ export function fetchWork(user, from) {
     const fromParam = from.format(DATE_FORMAT);
     const to = from.clone().add(13, 'd');
     const toParam = to.format(DATE_FORMAT);
-    console.log(`GET /api/users/${user.id}/work?from=${fromParam}&to=${toParam}`);
     const range = {from, to};
     return dispatch => callServer(dispatch, ActionTypes.GET_WORK, 'get', `/api/users/${user.id}/work?from=${fromParam}&to=${toParam}`, null, range);
 }
@@ -47,14 +46,13 @@ export function editWorkRow(row) {
 }
 
 export function deleteWorkRow(row) {
-    console.log(row);
     if (row.id) {
-        // TODO: remove from server
+        return dispatch => callServer(dispatch, ActionTypes.DELETE_WORK, 'delete', `/api/work/${row.id}`);
     }
     else {
         return {
             type: ActionTypes.DELETE_WORK_ROW,
-            payload: {data:row}
+            payload: {data: row}
         }
     }
 }
@@ -98,6 +96,38 @@ export function updateProject(project) {
 
 export function deleteProject(project) {
     return dispatch => callServer(dispatch, ActionTypes.DELETE_PROJECT, 'delete', `/api/projects/${project.id}`);
+}
+
+export function saveWorkRow(user, workRow) {
+    const commentParam = workRow.comment || "";
+    if (workRow.id) {
+        return updateWork(workRow.id, workRow["project-id"], workRow.hours, commentParam);
+    }
+    else {
+        const dateParam = workRow.date.format(DATE_FORMAT);
+        return addWork(user.id, workRow.key, workRow["project-id"], dateParam, workRow.hours, commentParam);
+    }
+}
+
+function addWork(userId, key, projectId, workDate, hours, comment) {
+    return dispatch => callServer(dispatch, ActionTypes.ADD_WORK, 'post', '/api/work',
+        {
+            userID: userId,
+            key,
+            projectID: projectId,
+            workDate,
+            hours,
+            comment
+        })
+}
+
+function updateWork(workId, projectId, hours, comment) {
+    return dispatch => callServer(dispatch, ActionTypes.UPDATE_WORK, 'put', '/api/work/' + workId,
+        {
+            projectID: projectId,
+            hours,
+            comment
+        })
 }
 
 export function login(username, password) {

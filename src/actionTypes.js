@@ -16,3 +16,6 @@ export const GET_WORK = 'GET_WORK';
 export const ADD_WORK_ROW = 'ADD_WORK_ROW';
 export const EDIT_WORK_ROW = 'EDIT_WORK_ROW';
 export const DELETE_WORK_ROW = 'DELETE_WORK_ROW';
+export const ADD_WORK = 'ADD_WORK';
+export const UPDATE_WORK = 'UPDATE_WORK';
+export const DELETE_WORK = 'DELETE_WORK';

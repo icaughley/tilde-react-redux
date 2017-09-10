@@ -16,7 +16,7 @@ const WorkRowForm = (props) => {
                 {props.dateCell}
             </td>
             <td className={props.tdClassName}>
-                <Field name="project" type="select" component={renderField} validate={[required]} props={{options: props.projectOptions}}/>
+                <Field name="project-id" type="select" component={renderField} validate={[required]} props={{options: props.projectOptions}}/>
             </td>
             <td className={props.tdClassName}>
                 <Field name="hours" type="text" component={renderField} validate={[required]} props={{className: "hoursField"}}/>
@@ -44,7 +44,7 @@ const WorkRowForm = (props) => {
 };
 
 WorkRowForm.propTypes = {
-    workRow: PropTypes.object.isRequired,
+    initialValues: PropTypes.object.isRequired,
     projectOptions: PropTypes.array.isRequired,
     trClassName: PropTypes.string.isRequired,
     tdClassName: PropTypes.string.isRequired,

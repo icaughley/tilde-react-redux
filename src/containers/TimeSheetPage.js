@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import WorkList from "../components/WorkList";
 import TimeSheetControls from "../components/TimeSheetControls";
-import {addWorkRow, deleteWorkRow, editWorkRow, fetchProjects, fetchWork} from "../actions";
+import {addWorkRow, deleteWorkRow, editWorkRow, saveWorkRow, fetchProjects, fetchWork} from "../actions";
 
 
 class TimeSheetPage extends React.Component {
@@ -50,10 +50,8 @@ class TimeSheetPage extends React.Component {
         this.props.editWorkRow(workRow);
     };
 
-    onSave = (values) => {
-//{project: 121, hours: "12", comment: "hi there"}
-        console.log(values);
-
+    onSave = (workRow) => {
+        this.props.saveWorkRow( this.props.user, workRow );
     };
 
     move(days) {
@@ -70,7 +68,8 @@ class TimeSheetPage extends React.Component {
                                    onWeekRight={this.onWeekRight}
                                    onMonthRight={this.onMonthRight}/>
                 <WorkList rows={this.props.work.rows}
-                          projectOptions={this.props.projectOptions}
+                          usersProjects={this.props.usersProjects}
+                          projects={this.props.projects}
                           onSave={this.onSave}
                           onAdd={this.onAdd}
                           onEdit={this.onEdit}
@@ -82,7 +81,8 @@ class TimeSheetPage extends React.Component {
 
 TimeSheetPage.propTypes = {
     work: PropTypes.object.isRequired,
-    projectOptions: PropTypes.array.isRequired,
+    projects: PropTypes.object.isRequired,
+    usersProjects: PropTypes.array.isRequired,
     fetchWork: PropTypes.func.isRequired,
     addWorkRow: PropTypes.func.isRequired,
     editWorkRow: PropTypes.func.isRequired,
@@ -91,7 +91,7 @@ TimeSheetPage.propTypes = {
 
 function mapStateToProps({auth, work, timesheetDate, projects}) {
     const uncloakedProjects = _.pickBy(projects, p => !p.cloaked);
-    const projectOptions = _.values(uncloakedProjects).map(p => {
+    const usersProjects = _.values(uncloakedProjects).map(p => {
         return {value: p.id, text: p.name}
     });
 
@@ -99,7 +99,8 @@ function mapStateToProps({auth, work, timesheetDate, projects}) {
         user: auth.user,
         work,
         timesheetDate,
-        projectOptions: projectOptions.sort((p1, p2) => p1.text.localeCompare(p2.text))
+        usersProjects: usersProjects.sort((p1, p2) => p1.text.localeCompare(p2.text)),
+        projects
     }
 }
 
@@ -107,6 +108,7 @@ export default connect(mapStateToProps, {
     fetchWork,
     fetchProjects,
     addWorkRow,
+    saveWorkRow,
     deleteWorkRow,
     editWorkRow
 })(TimeSheetPage);

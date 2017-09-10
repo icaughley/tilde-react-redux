@@ -4,6 +4,7 @@ import moment from "moment";
 import {Button} from "semantic-ui-react";
 import _ from "lodash";
 import WorkRowForm from "../forms/WorkRowForm";
+import {sortRows} from "../helpers/workRowHelper";
 
 const TODAY = moment().startOf("day");
 
@@ -36,12 +37,12 @@ const dateCell = (workRow, onAdd) => (
     </span>
 );
 
-const viewRow = (workRow, onAdd, onDelete, onEdit) => {
+const viewRow = (workRow, onAdd, onDelete, onEdit, projects) => {
     return (
         <tr className={trClassName(workRow)} key={workRow.key}>
             <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}</td>
             <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? dateCell(workRow) : ""}</td>
-            <td className={tdClassName(workRow)}>{workRow["project-id"]}</td>
+            <td className={tdClassName(workRow)}>{projects[workRow["project-id"]] ? projects[workRow["project-id"]].name : ""}</td>
             <td className={tdClassName(workRow)}>{workRow.hours}</td>
             <td className={tdClassName(workRow)}>{workRow.comment}</td>
             <td className={tdClassName(workRow)}>
@@ -62,11 +63,11 @@ const viewRow = (workRow, onAdd, onDelete, onEdit) => {
     );
 };
 
-const editRow = (workRow, onSave, onAdd, projectOptions) => {
+const editRow = (workRow, onSave, onAdd, usersProjects) => {
     const key = workRow.key;
     return (
-        <WorkRowForm workRow={workRow}
-                     projectOptions={projectOptions}
+        <WorkRowForm initialValues={workRow}
+                     projectOptions={usersProjects}
                      addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
                      dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
                      onSave={onSave}
@@ -77,16 +78,12 @@ const editRow = (workRow, onSave, onAdd, projectOptions) => {
     );
 };
 
-const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, projectOptions}) => {
-    const tableRows = _.values(rows)
-        .sort((workRow1, workRow2) => {
-            if (workRow1.date.isSame(workRow2.date)) {
-                return workRow1.row - workRow2.row;
-            }
-            return workRow1.date.isBefore(workRow2.date) ? -1 : 1;
-        })
+const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, usersProjects, projects}) => {
+    const tableRows = _.values(rows).sort(sortRows)
         .map(workRow => {
-            return workRow.editMode ? editRow(workRow, onSave, onAdd, projectOptions) : viewRow(workRow, onAdd, onDelete, onEdit);
+            return workRow.editMode ?
+                editRow(workRow, onSave, onAdd, usersProjects) :
+                viewRow(workRow, onAdd, onDelete, onEdit, projects);
         });
 
     return (

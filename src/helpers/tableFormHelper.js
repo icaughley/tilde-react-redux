@@ -18,14 +18,13 @@ export function renderField(field) {
 
     function renderSelect() {
         // The "options" prop on the field should be an array of objects: { value: "Key", text: "Value" }
-
-        return (
-            <Dropdown selection={true} fluid={true}
+        const blank = [{value: "", text: ""}];
+        return (<Dropdown selection={true} fluid={true}
                       className={className}
                       {...field.input}
                       value={field.input.value}
                       onChange={(param,data) => field.input.onChange(data.value)}
-                      options={field.options}/>
+                      options={blank.concat(field.options)}/>
         );
     }
 
