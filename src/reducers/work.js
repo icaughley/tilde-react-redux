@@ -95,7 +95,7 @@ function handleDeleteRow(state, action) {
     const key = row.key || row.id;
     const newState = {
         range: {...state.range},
-        rows: {...state.rows}
+        rows: _.cloneDeep(state.rows)
     };
     delete newState.rows[key];
 
