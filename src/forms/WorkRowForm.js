@@ -32,7 +32,7 @@ const WorkRowForm = (props) => {
                             className="ui compact icon">
                         <i className="checkmark icon"/>
                     </Button>
-                    <Button
+                    <Button onClick={props.onCancel.bind( null, props.initialValues)}
                         disabled={props.submitting}
                         className="ui compact icon">
                         <i className="red ban icon"/>
@@ -48,7 +48,8 @@ WorkRowForm.propTypes = {
     projectOptions: PropTypes.array.isRequired,
     trClassName: PropTypes.string.isRequired,
     tdClassName: PropTypes.string.isRequired,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired
 };
 
 export default reduxForm({fields: ['project', 'hours', 'comment']})(WorkRowForm);

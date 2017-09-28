@@ -63,7 +63,7 @@ const viewRow = (workRow, onAdd, onDelete, onEdit, projects) => {
     );
 };
 
-const editRow = (workRow, onSave, onAdd, usersProjects) => {
+const editRow = (workRow, onSave, onCancel, onAdd, usersProjects) => {
     const key = workRow.key;
     return (
         <WorkRowForm initialValues={workRow}
@@ -71,6 +71,7 @@ const editRow = (workRow, onSave, onAdd, usersProjects) => {
                      addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
                      dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
                      onSave={onSave}
+                     onCancel={onCancel}
                      trClassName={trClassName(workRow)}
                      tdClassName={tdClassName(workRow)}
                      form={`WorkRow${key}`}
@@ -82,7 +83,7 @@ const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, usersProjects, project
     const tableRows = _.values(rows).sort(sortRows)
         .map(workRow => {
             return workRow.editMode ?
-                editRow(workRow, onSave, onAdd, usersProjects) :
+                editRow(workRow, onSave, onDelete, onAdd, usersProjects) :
                 viewRow(workRow, onAdd, onDelete, onEdit, projects);
         });
 
