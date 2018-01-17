@@ -13,6 +13,20 @@ body, div, p, th, td {
     color: #281747;
 }
 
+div.page-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 1em;
+}
+
+div.page-heading h1.ui.label {
+    font-size: 1.6em;
+    color: white;
+    background-color: #9CD0EC;
+    border-color: #281945;
+}
+
 table {
     padding: 2px;
     border: 0;
@@ -25,6 +39,10 @@ img {
 th, td {
     text-align: left;
     vertical-align: middle;
+}
+
+.ui.table td {
+    padding: .3em;
 }
 
 th {
@@ -96,12 +114,19 @@ div.page-header .logo {
 
 div.menu {
     padding: 3px;
-    background: #d5e1e9;
     border-bottom: 1px solid #a2b7c5;
 }
 
 div.menu .menu-right {
     float: right;
+}
+
+div.menu .menu-right a:last-child::after {
+    content: " |";
+}
+
+div.menu .menu-right a::before {
+    content: " | ";
 }
 
 div.menu a {
@@ -119,8 +144,8 @@ div.menu a:hover {
 }
 
 div.page-holder {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 div.page-message {

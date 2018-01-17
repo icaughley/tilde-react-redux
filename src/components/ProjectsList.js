@@ -45,7 +45,7 @@ const ProjectsList = (props) => {
                     <td className={tdClassName(project, "center aligned")}>{tickCross(project.working)}</td>
                     <td className={tdClassName(project, "center aligned")}>{tickCross(project.billable)}</td>
                     <td className="center aligned">
-                        <div className="ui icon buttons">
+                        <div className="ui buttons">
                             <a href="#" onClick={toProject.bind(null, project)} className="ui compact icon button">
                                 <i className="edit icon"/>
                             </a>

@@ -33,7 +33,7 @@ class ProjectsPage extends React.Component {
         return (
             <div className="projects-page">
                 <Route path="/projects/:id" component={EditModal}/>
-                <h1>Projects List <AddModal onSubmit={this.onAddProjectSubmitted}/></h1>
+                <div className="page-heading"><h1 className="ui ribbon label">Projects List</h1> <AddModal onSubmit={this.onAddProjectSubmitted}/></div>
                 <ProjectsList projects={this.props.projects}
                               onCloakedChange={this.onCloakedChange}
                               onDelete={this.onDelete}

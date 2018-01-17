@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import WorkList from "../components/WorkList";
 import TimeSheetControls from "../components/TimeSheetControls";
-import {addWorkRow, deleteWorkRow, editWorkRow, saveWorkRow, fetchProjects, fetchWork} from "../actions";
+import {addWorkRow, deleteWorkRow, editWorkRow, fetchProjects, fetchWork, saveWorkRow} from "../actions";
 
 
 class TimeSheetPage extends React.Component {
@@ -51,7 +51,7 @@ class TimeSheetPage extends React.Component {
     };
 
     onSave = (workRow) => {
-        this.props.saveWorkRow( this.props.user, workRow );
+        this.props.saveWorkRow(this.props.user, workRow);
     };
 
     move(days) {
@@ -62,18 +62,23 @@ class TimeSheetPage extends React.Component {
     render() {
         return (
             <div id="timesheet-page">
-                <TimeSheetControls onWeekLeft={this.onWeekLeft}
-                                   onMonthLeft={this.onMonthLeft}
-                                   onToday={this.onToday}
-                                   onWeekRight={this.onWeekRight}
-                                   onMonthRight={this.onMonthRight}/>
-                <WorkList rows={this.props.work.rows}
-                          usersProjects={this.props.usersProjects}
-                          projects={this.props.projects}
-                          onSave={this.onSave}
-                          onAdd={this.onAdd}
-                          onEdit={this.onEdit}
-                          onDelete={this.onDelete}/>
+                <div className="page-heading">
+                    <h1 className="ui ribbon label">Time Sheet</h1>
+                    <TimeSheetControls onWeekLeft={this.onWeekLeft}
+                                       onMonthLeft={this.onMonthLeft}
+                                       onToday={this.onToday}
+                                       onWeekRight={this.onWeekRight}
+                                       onMonthRight={this.onMonthRight}/>
+                </div>
+                <div>
+                    <WorkList rows={this.props.work.rows}
+                              usersProjects={this.props.usersProjects}
+                              projects={this.props.projects}
+                              onSave={this.onSave}
+                              onAdd={this.onAdd}
+                              onEdit={this.onEdit}
+                              onDelete={this.onDelete}/>
+                </div>
             </div>
         );
     }
