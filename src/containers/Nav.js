@@ -15,7 +15,7 @@ class Nav extends Component {
         this.props.push('invoicing')
     };
     toPayroll = () => {
-        this.props.push('payroll')
+        this.props.push('payroll');
     };
 
     render() {
