@@ -258,3 +258,18 @@ th.minWidthCell {
 #timesheet-page .field.hoursField .ui.input, th.hoursField{
     width: 75px;
 }
+
+.ui.form select {
+    background: white;
+    height: 2.6em;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.ui.table td.viewModeField, .ui.table td.viewModeSelect {
+    padding-left: 1.3em;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.ui.table td.viewModeSelect {
+    padding-left: 1.0em;
+}

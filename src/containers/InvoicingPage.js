@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import InvoicingList from "../components/InvoicingList";
 import {connect} from "react-redux";
-import {fetchInvoicingEntries, fetchBillableProjects} from "../actions";
+import {fetchInvoicingEntries} from "../actions/invoiceEntryActions";
+import {fetchBillableProjects} from "../actions/projectActions";
 import {billableProjectsSelector} from "../selectors/selectors";
 import SelectInput from "../components/common/SelectInput";
 
@@ -17,7 +18,7 @@ class InvoicingPage extends React.Component {
         if (projectID === -1) {
             return;
         }
-        const project = this.props.billableProjects[ projectID ];
+        const project = this.props.billableProjects.get( projectID );
         return this.props.fetchInvoicingEntries(project);
     }
 

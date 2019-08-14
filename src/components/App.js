@@ -14,12 +14,12 @@ export default () => {
     return (
         <div className="main">
             <Header />
+            <PageMessage />
             <Switch>
                 <Route path="/login" component={LoginPage}/>
                 <SecureZone>
                     <Nav />
                     <div className="page-holder">
-                        <PageMessage />
                         <Route path="/projects" component={ProjectsPage}/>
                         <Route path="/invoicing" component={InvoicingPage}/>
                         <Route path="/timeSheet" component={TimeSheetPage}/>

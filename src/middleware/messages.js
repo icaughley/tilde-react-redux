@@ -12,6 +12,7 @@ function openMessage(store, type, msg) {
 
 export default store => next => action => {
 
+    // TODO: make this work off the errorStore
     if (_.endsWith(action.type, ActionTypes.ERROR_SUFFIX)) {
         return openMessage(store, 'error', action.payload ? action.payload.statusText : 'Error contacting server');
     }

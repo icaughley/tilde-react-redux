@@ -1,21 +1,34 @@
 import React from "react";
-import _ from "lodash";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import {observer} from "mobx-react";
+import {computed} from "mobx";
 import moment from "moment";
 import WorkList from "../components/WorkList";
 import TimeSheetControls from "../components/TimeSheetControls";
-import {addWorkRow, deleteWorkRow, editWorkRow, fetchProjects, fetchWork, saveWorkRow} from "../actions";
+import workStore from "../stores/workStore";
+import projectStore from "../stores/projectStore";
+import authStore from "../stores/authStore";
+import * as workActions from "../actions/workActions";
+import {fetchProjects} from "../actions/projectActions";
 
-
+@observer
 class TimeSheetPage extends React.Component {
+
+    @computed
+    get projectOptions() {
+        return projectStore.projects.values()
+            .filter(p => !p.cloaked)
+            .map(p => ({value: '' + p.id, text: p.name}))
+            .sort((p1, p2) => p1.text.localeCompare(p2.text));
+    };
+
+
     defaultStartDate() {
         return moment().startOf('isoWeek').subtract(7, "days");
     }
 
     componentDidMount() {
-        this.props.fetchWork(this.props.user, this.props.work.range.from || this.defaultStartDate());
-        this.props.fetchProjects(this.props.user);
+        workActions.fetchWork(authStore.user, workStore.range.from || this.defaultStartDate());
+        fetchProjects(authStore.user);
     }
 
     onWeekLeft = () => {
@@ -35,28 +48,28 @@ class TimeSheetPage extends React.Component {
     };
 
     onToday = () => {
-        this.props.fetchWork(this.props.user, this.defaultStartDate());
+        workActions.fetchWork(authStore.user, this.defaultStartDate());
     };
 
     onAdd = (workRow) => {
-        this.props.addWorkRow(workRow.date);
+        workStore.addWorkRow(workRow.date);
     };
 
     onDelete = (workRow) => {
-        this.props.deleteWorkRow(workRow);
+        workActions.deleteWorkRow(workRow);
     };
 
     onEdit = (workRow) => {
-        this.props.editWorkRow(workRow);
+        workActions.editWorkRow(workRow);
     };
 
     onSave = (workRow) => {
-        this.props.saveWorkRow(this.props.user, workRow);
+        workActions.saveWorkRow(authStore.user, workRow);
     };
 
     move(days) {
-        const newDate = this.props.work.range.from.clone().add(days, 'days');
-        this.props.fetchWork(this.props.user, newDate);
+        const newDate = workStore.range.from.clone().add(days, 'days');
+        workActions.fetchWork(authStore.user, newDate);
     }
 
     render() {
@@ -71,9 +84,9 @@ class TimeSheetPage extends React.Component {
                                        onMonthRight={this.onMonthRight}/>
                 </div>
                 <div>
-                    <WorkList rows={this.props.work.rows}
-                              usersProjects={this.props.usersProjects}
-                              projects={this.props.projects}
+                    <WorkList rows={workStore.rows}
+                              projectOptions={this.projectOptions}
+                              projects={projectStore.projects}
                               onSave={this.onSave}
                               onAdd={this.onAdd}
                               onEdit={this.onEdit}
@@ -84,36 +97,4 @@ class TimeSheetPage extends React.Component {
     }
 }
 
-TimeSheetPage.propTypes = {
-    work: PropTypes.object.isRequired,
-    projects: PropTypes.object.isRequired,
-    usersProjects: PropTypes.array.isRequired,
-    fetchWork: PropTypes.func.isRequired,
-    addWorkRow: PropTypes.func.isRequired,
-    editWorkRow: PropTypes.func.isRequired,
-    deleteWorkRow: PropTypes.func.isRequired
-};
-
-function mapStateToProps({auth, work, timesheetDate, projects}) {
-    const uncloakedProjects = _.pickBy(projects, p => !p.cloaked);
-    const usersProjects = _.values(uncloakedProjects).map(p => {
-        return {value: p.id, text: p.name}
-    });
-
-    return {
-        user: auth.user,
-        work,
-        timesheetDate,
-        usersProjects: usersProjects.sort((p1, p2) => p1.text.localeCompare(p2.text)),
-        projects
-    }
-}
-
-export default connect(mapStateToProps, {
-    fetchWork,
-    fetchProjects,
-    addWorkRow,
-    saveWorkRow,
-    deleteWorkRow,
-    editWorkRow
-})(TimeSheetPage);
+export default TimeSheetPage;

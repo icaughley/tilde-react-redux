@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {observer} from "mobx-react";
 import moment from "moment";
 import {Button} from "semantic-ui-react";
-import _ from "lodash";
-import WorkRowForm from "../forms/WorkRowForm";
+import EditableWorkRow from "./EditableWorkRow";
 import {sortRows} from "../helpers/workRowHelper";
 
 const TODAY = moment().startOf("day");
@@ -42,9 +41,9 @@ const viewRow = (workRow, onAdd, onDelete, onEdit, projects) => {
         <tr className={trClassName(workRow)} key={workRow.key}>
             <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}</td>
             <td className={tdClassName(workRow)}>{workRow.firstRowForDate ? dateCell(workRow) : ""}</td>
-            <td className={tdClassName(workRow)}>{projects[workRow["project-id"]] ? projects[workRow["project-id"]].name : ""}</td>
-            <td className={tdClassName(workRow)}>{workRow.hours}</td>
-            <td className={tdClassName(workRow)}>{workRow.comment}</td>
+            <td className={tdClassName(workRow) + "viewModeSelect"}>{projects.get(workRow.projectId) ? projects.get(workRow.projectId).name : ""}</td>
+            <td className={tdClassName(workRow) + "viewModeField"}>{workRow.hours}</td>
+            <td className={tdClassName(workRow) + "viewModeField"}>{workRow.comment}</td>
             <td className={tdClassName(workRow)}>
                 <Button.Group>
                     <Button type="button"
@@ -63,27 +62,28 @@ const viewRow = (workRow, onAdd, onDelete, onEdit, projects) => {
     );
 };
 
-const editRow = (workRow, onSave, onCancel, onAdd, usersProjects) => {
+const editRow = (workRow, onSave, onCancel, onAdd, projectOptions) => {
     const key = workRow.key;
     return (
-        <WorkRowForm initialValues={workRow}
-                     projectOptions={usersProjects}
-                     addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
-                     dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
-                     onSave={onSave}
-                     onCancel={onCancel}
-                     trClassName={trClassName(workRow)}
-                     tdClassName={tdClassName(workRow)}
-                     form={`WorkRow${key}`}
-                     key={key}/>
+        <EditableWorkRow initialValues={workRow}
+                         projectOptions={projectOptions}
+                         addCell={workRow.firstRowForDate ? addCell(workRow, onAdd) : ""}
+                         dateCell={workRow.firstRowForDate ? dateCell(workRow) : ""}
+                         onSave={onSave}
+                         onCancel={onCancel}
+                         trClassName={trClassName(workRow)}
+                         tdClassName={tdClassName(workRow)}
+                         form={`WorkRow${key}`}
+                         key={key}
+                         rowKey={key}/>
     );
 };
 
-const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, usersProjects, projects}) => {
-    const tableRows = _.values(rows).sort(sortRows)
+const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, projectOptions, projects}) => {
+    const tableRows = rows.values().sort(sortRows)
         .map(workRow => {
             return workRow.editMode ?
-                editRow(workRow, onSave, onDelete, onAdd, usersProjects) :
+                editRow(workRow, onSave, onDelete, onAdd, projectOptions) :
                 viewRow(workRow, onAdd, onDelete, onEdit, projects);
         });
 
@@ -106,12 +106,4 @@ const WorkList = ({rows, onAdd, onDelete, onSave, onEdit, usersProjects, project
     );
 };
 
-WorkList.propTypes = {
-    rows: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
-};
-
-export default WorkList;
+export default observer(WorkList);

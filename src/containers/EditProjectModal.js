@@ -1,25 +1,27 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {push} from "react-router-redux";
+import { withRouter } from 'react-router-dom';
 import {Modal} from "semantic-ui-react";
-import ProjectForm from "../forms/ProjectForm";
-import {updateProject} from "../actions";
+import ProjectForm, {projectForm} from "../forms/ProjectForm";
+import {updateProject} from "../actions/projectActions";
+import projectStore from "../stores/projectStore";
 
 /**
  * This modal is controlled by the URL. When we are at projects/{id}, the modal is displayed.
  */
 class EditProjectModal extends React.Component {
+
     handleClose = () => {
-        this.props.push("/projects");
+        this.props.history.push("/projects");
     };
 
     handleSubmit = (values) => {
         this.handleClose();
-        return this.props.updateProject(values);
+        return updateProject(values);
     };
 
     render() {
+        const project = projectStore.projects.get(this.props.match.params.id);
+        const form = projectForm(this.handleSubmit, project);
         return (
             <Modal size="small"
                    open={true}
@@ -27,22 +29,11 @@ class EditProjectModal extends React.Component {
                    onClose={this.handleClose}>
                 <Modal.Header>Edit Project</Modal.Header>
                 <Modal.Content>
-                    <ProjectForm initialValues={this.props.project} onSubmit={this.handleSubmit}/>
+                    <ProjectForm form={form}/>
                 </Modal.Content>
             </Modal>
         );
     }
 }
 
-EditProjectModal.propTypes = {
-    updateProject: PropTypes.func.isRequired
-};
-
-function mapStateToProps({projects}, ownProps) {
-    return {
-        project: projects[ownProps.match.params.id]
-    }
-}
-
-// withRouter will add the history to the props.
-export default connect(mapStateToProps, {updateProject, push})(EditProjectModal)
+export default withRouter( EditProjectModal );

@@ -1,22 +1,55 @@
 import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {renderField} from "../helpers/formHelper";
+import {observer} from "mobx-react";
 import {Button} from "semantic-ui-react";
+import SimpleInput from "../inputs/SimpleInput";
+import MobxReactForm from "mobx-react-form";
+import validatorjs from "validatorjs";
 
-const required = value => (value ? undefined : 'Must not be blank');
+export default observer(({form}) => {
 
-const ProjectForm = props => {
     return (
-        <form onSubmit={props.handleSubmit} className="ui form">
-            <Field name="name" label="Name" component={renderField} type="text" validate={[required]}/>
-            <div className="fields">
-                <Field name="working" label="Working" component={renderField} type="checkbox"/>
-                <Field name="billable" label="Billable" component={renderField} type="checkbox"/>
-            </div>
-            <Button type="submit"
-                    disabled={props.pristine || props.submitting}>Submit</Button>
+        <form className={form.hasError ? 'error ui form' : 'ui form'} onSubmit={form.onSubmit}>
+            <SimpleInput field={form.$('name')}/>
+            <SimpleInput field={form.$('working')}/>
+            <SimpleInput field={form.$('billable')}/>
+            <Button type="submit" disabled={form.isPristine || form.submitting}>
+                Submit
+            </Button>
         </form>
     );
-};
+});
 
-export default reduxForm({form: 'ProjectForm'})(ProjectForm);
+export function projectForm(onSubmit, initialValues) {
+    const plugins = {dvr: validatorjs};
+
+    const fields = [{
+        name: 'name',
+        label: 'Name',
+        value: initialValues ? initialValues.name : "",
+        rules: 'required|string'
+    }, {
+        type: 'checkbox',
+        name: 'working',
+        label: 'Working',
+        value: initialValues ? initialValues.working : false,
+        rules: 'boolean'
+    }, {
+        type: 'checkbox',
+        name: 'billable',
+        label: 'Billable',
+        value: initialValues ? initialValues.billable : false,
+        rules: 'boolean'
+    }];
+
+    const hooks = {
+        onSuccess(form) {
+            console.log(form.values());
+            onSubmit({id: initialValues ? initialValues.id : null, ...form.values()});
+        },
+        onError(form) {
+            alert('Form has errors!');
+        }
+    };
+
+    return new MobxReactForm({fields}, {plugins, hooks});
+}

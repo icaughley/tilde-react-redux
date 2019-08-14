@@ -1,13 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {addProject} from "../actions/projectActions";
 import {Button, Modal} from "semantic-ui-react";
-import ProjectForm from "../forms/ProjectForm";
+import ProjectForm, {projectForm} from "../forms/ProjectForm";
 
 /**
  * This is a Controlled Modal. Like a controlled field, the open-closedness of the modal is added to the local component
  * state, and controlled through handle methods. This is done to allow the submittion of the form to close the modal.
  */
-export default class AddProjectModal extends React.Component {
+class AddProjectModal extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {modalOpen: false};
@@ -23,10 +24,11 @@ export default class AddProjectModal extends React.Component {
 
     handleSubmit = (values) => {
         this.handleClose();
-        return this.props.onSubmit(values);
+        return addProject(values);
     };
 
     render() {
+        const form = projectForm(this.handleSubmit);
         return (
             <Modal size="small"
                    trigger={<Button className="right floated positive" onClick={this.handleOpen}>Add</Button>}
@@ -34,12 +36,12 @@ export default class AddProjectModal extends React.Component {
                    onClose={this.handleClose}
                    closeIcon={true}>
                 <Modal.Header>Add Project</Modal.Header>
-                <Modal.Content><ProjectForm onSubmit={this.handleSubmit}/></Modal.Content>
+                <Modal.Content>
+                    <ProjectForm form={form}/>
+                </Modal.Content>
             </Modal>
         );
     }
 }
 
-AddProjectModal.propTypes = {
-    onSubmit: PropTypes.func.isRequired
-};
+export default AddProjectModal;

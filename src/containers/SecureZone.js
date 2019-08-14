@@ -1,26 +1,12 @@
-import React, {Component} from "react";
+import React from "react";
+import {observer} from "mobx-react";
 import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
-import PropTypes from "prop-types";
+import authStore from "../stores/authStore";
 
-class SecureZone extends Component {
-    render() {
-        if (this.props.auth) {
-            return <div>{this.props.children}</div>;
-        } else {
-            return <Redirect to="/login"/>;
-        }
+export default observer((props) => {
+    if (authStore.authenticated) {
+        return <div>{props.children}</div>;
+    } else {
+        return <Redirect to="/login"/>;
     }
-}
-
-SecureZone.propTypes = {
-    auth: PropTypes.object
-};
-
-function mapStateToProps({auth}) {
-    return {
-        auth
-    }
-}
-
-export default connect(mapStateToProps)(SecureZone);
+});
