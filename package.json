@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "0.16.2",
     "deep-freeze": "0.0.1",
-    "lodash": "4.17.4",
+    "lodash": "4.17.19",
     "moment": "2.18.1",
     "qs": "6.4.0",
     "react": "15.5.4",
